@@ -1,0 +1,1276 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <title>第2章第1篇:Window日志分析 | cx网络安全小站</title>
+  <meta name="keywords" content=" 第二章 ">
+  <meta name="description" content="第2章第1篇:Window日志分析 | cx网络安全小站">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="更新系统（可选） 12sudo apt-get updatesudo apt-get upgrade  开始安装 1，安装MySQL在终端输入以下命令，安装MySQL： sudo apt install mariadb-server 2，设置数据库在终端中，运行MySQL安全安装命令 sudo mysql_secure_installation此时系统会询问你：Enter current pass">
+<meta property="og:type" content="article">
+<meta property="og:title" content="树莓派安装MySQL 搭建数据库">
+<meta property="og:url" content="http://yoursite.com/2019/10/28/树莓派安装MySQL-搭建数据库/index.html">
+<meta property="og:site_name" content="cx网络安全小站">
+<meta property="og:description" content="更新系统（可选） 12sudo apt-get updatesudo apt-get upgrade  开始安装 1，安装MySQL在终端输入以下命令，安装MySQL： sudo apt install mariadb-server 2，设置数据库在终端中，运行MySQL安全安装命令 sudo mysql_secure_installation此时系统会询问你：Enter current pass">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-10-28T00:46:26.435Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="树莓派安装MySQL 搭建数据库">
+<meta name="twitter:description" content="更新系统（可选） 12sudo apt-get updatesudo apt-get upgrade  开始安装 1，安装MySQL在终端输入以下命令，安装MySQL： sudo apt install mariadb-server 2，设置数据库在终端中，运行MySQL安全安装命令 sudo mysql_secure_installation此时系统会询问你：Enter current pass">
+
+
+<link rel="icon" href="/img/cx.jpg">
+
+<link href="/css/style.css?v=1.0.1" rel="stylesheet">
+
+<link href="/css/hl_theme/atom-light.css?v=1.0.1" rel="stylesheet">
+
+<link href="//cdn.bootcss.com/animate.css/3.5.2/animate.min.css" rel="stylesheet">
+<link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="/js/jquery.autocomplete.min.js?v=1.0.1"></script>
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+
+<script src="/js/iconfont.js?v=1.0.1"></script>
+
+</head>
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="true">
+  <input class="theme_blog_path" value>
+</div>
+
+<body>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/" class="avatar_target">
+    <img class="avatar" src="/img/cx.jpg" />
+</a>
+<div class="author">
+    <span>cx</span>
+</div>
+
+<div class="icon">
+    
+        
+    
+        
+        <a title="github" href="https://github.com/cxaqhq" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-github"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+        <a title="zhihu" href="https://www.zhihu.com/people/xiao-yao-you-41-22" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-zhihu"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+    
+        
+    
+        
+    
+        
+        <a title="email" href="mailto:cxaqhq@qq.com" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-email"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="qq" href="http://wpa.qq.com/msgrd?v=3&uin=3149820232&site=qq&menu=yes" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-qq"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+    
+        
+    
+</div>
+
+
+
+
+<ul>
+    <li><div class="all active">全部文章<small>(49)</small></div></li>
+    
+        
+            
+            <li><div data-rel="msf">msf<small>(3)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="web">web<small>(4)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="内网">内网<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="windows">windows<small>(6)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="linux">linux<small>(5)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="web实战">web实战<small>(8)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="日志分析">日志分析<small>(5)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="应急响应">应急响应<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="法律">法律<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+    
+    
+    
+    
+    </div>
+    <div></div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="49">
+<input type="hidden" id="yelog_site_word_count" value="55.3k">
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        友情链接
+        <i class="back-title-list"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+            <li><a target="_blank" href="http://yelog.org/">叶落阁</a></li>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <form onkeydown="if(event.keyCode==13){return false;}">
+        <input class="search" type="text" placeholder="以 in: 开头进行全文搜索" autocomplete="off"id="local-search-input" >
+        <i class="cross"></i>
+        <span>
+            <label for="tagswitch">Tags:</label>
+            <input id="tagswitch" type="checkbox" style="display: none" />
+            <i id="tagsWitchIcon"></i>
+        </span>
+    </form>
+    <div class="tags-list">
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">msf</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">web</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">phpmyadmin</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color2">sqlmap</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">密码抓取</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">第四章</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">第三章</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">第五章</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">第二章</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">第一章</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">后门</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">法律</a>
+    </li>
+    
+    <div class="clearfix"></div>
+</div>
+
+    
+    <div id="local-search-result">
+
+    </div>
+    
+    <nav id="title-list-nav">
+        
+        <a id="top" class=""
+           href="/2019/10/06/第一篇/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="第一篇">第一篇</span>
+            <span class="post-date" title="2019-10-06 10:26:26">2019/10/06</span>
+        </a>
+        
+        <a id="top" class="法律 "
+           href="/2019/10/06/网络安全法/"
+           data-tag="法律"
+           data-author="" >
+            <span class="post-title" title="网络安全法">网络安全法</span>
+            <span class="post-date" title="2019-10-06 12:26:31">2019/10/06</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/10/28/树莓派安装MySQL-搭建数据库/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="树莓派安装MySQL 搭建数据库">树莓派安装MySQL 搭建数据库</span>
+            <span class="post-date" title="2019-10-28 08:42:07">2019/10/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/10/28/树莓派安装teamviewer/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="树莓派安装teamviewer">树莓派安装teamviewer</span>
+            <span class="post-date" title="2019-10-28 08:38:57">2019/10/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/10/27/树莓派-4b折腾/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="树莓派 4b折腾">树莓派 4b折腾</span>
+            <span class="post-date" title="2019-10-27 23:27:49">2019/10/27</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/10/24/攻防世界-web-wp/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="攻防世界-web-wp(新手)">攻防世界-web-wp(新手)</span>
+            <span class="post-date" title="2019-10-24 10:24:25">2019/10/24</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/10/20/内存取证-密码提取以及Volatility的使用/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="内存取证 Volatility">内存取证 Volatility</span>
+            <span class="post-date" title="2019-10-20 17:33:58">2019/10/20</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/10/19/360ctf-理论题（2019）/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="360ctf 理论题（2019）">360ctf 理论题（2019）</span>
+            <span class="post-date" title="2019-10-19 17:45:49">2019/10/19</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/10/18/sql/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="sql 速查表">sql 速查表</span>
+            <span class="post-date" title="2019-10-18 14:11:12">2019/10/18</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/10/18/自动补全的mysql客户端/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="自动补全的mysql客户端">自动补全的mysql客户端</span>
+            <span class="post-date" title="2019-10-18 13:01:46">2019/10/18</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/10/17/python操作mysql/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="python操作mysql">python操作mysql</span>
+            <span class="post-date" title="2019-10-17 13:05:13">2019/10/17</span>
+        </a>
+        
+        <a  class="web实战 "
+           href="/2019/10/16/第1篇：网站被植入Webshell/"
+           data-tag="第五章"
+           data-author="" >
+            <span class="post-title" title="第5章第1篇：网站被植入Webshell">第5章第1篇：网站被植入Webshell</span>
+            <span class="post-date" title="2019-10-16 19:30:00">2019/10/16</span>
+        </a>
+        
+        <a  class="web实战 "
+           href="/2019/10/16/第2篇：门罗币恶意挖矿/"
+           data-tag="第五章"
+           data-author="" >
+            <span class="post-title" title="第5章第2篇：门罗币恶意挖矿">第5章第2篇：门罗币恶意挖矿</span>
+            <span class="post-date" title="2019-10-16 19:30:00">2019/10/16</span>
+        </a>
+        
+        <a  class="web实战 "
+           href="/2019/10/16/第4篇：新闻源网站劫持/"
+           data-tag="第五章"
+           data-author="" >
+            <span class="post-title" title="第5章第4篇：新闻源网站劫持">第5章第4篇：新闻源网站劫持</span>
+            <span class="post-date" title="2019-10-16 19:29:00">2019/10/16</span>
+        </a>
+        
+        <a  class="web实战 "
+           href="/2019/10/16/第6篇：搜索引擎劫持/"
+           data-tag="第五章"
+           data-author="" >
+            <span class="post-title" title="第5章第6篇：搜索引擎劫持">第5章第6篇：搜索引擎劫持</span>
+            <span class="post-date" title="2019-10-16 19:29:00">2019/10/16</span>
+        </a>
+        
+        <a  class="web实战 "
+           href="/2019/10/16/第3篇：批量挂黑页/"
+           data-tag="第五章"
+           data-author="" >
+            <span class="post-title" title="第5章第3篇：批量挂黑页">第5章第3篇：批量挂黑页</span>
+            <span class="post-date" title="2019-10-16 19:29:00">2019/10/16</span>
+        </a>
+        
+        <a  class="web实战 "
+           href="/2019/10/16/第5篇：移动端劫持/"
+           data-tag="第五章"
+           data-author="" >
+            <span class="post-title" title="第5章第5篇：移动端劫持">第5章第5篇：移动端劫持</span>
+            <span class="post-date" title="2019-10-16 19:29:00">2019/10/16</span>
+        </a>
+        
+        <a  class="web实战 "
+           href="/2019/10/16/第7篇：网站首页被篡改/"
+           data-tag="第五章"
+           data-author="" >
+            <span class="post-title" title="第5章第7篇：网站首页被篡改">第5章第7篇：网站首页被篡改</span>
+            <span class="post-date" title="2019-10-16 19:28:00">2019/10/16</span>
+        </a>
+        
+        <a  class="日志分析 "
+           href="/2019/10/16/第1篇：Window日志分析/"
+           data-tag="第二章"
+           data-author="" >
+            <span class="post-title" title="第2章第1篇:Window日志分析">第2章第1篇:Window日志分析</span>
+            <span class="post-date" title="2019-10-16 13:42:00">2019/10/16</span>
+        </a>
+        
+        <a  class="应急响应 "
+           href="/2019/10/16/第2篇：Linux入侵排查/"
+           data-tag="第一章"
+           data-author="" >
+            <span class="post-title" title="第1章第2篇：Linux入侵排查">第1章第2篇：Linux入侵排查</span>
+            <span class="post-date" title="2019-10-16 13:42:00">2019/10/16</span>
+        </a>
+        
+        <a  class="日志分析 "
+           href="/2019/10/16/第3篇：Web日志分析/"
+           data-tag="第二章"
+           data-author="" >
+            <span class="post-title" title="第2章第3篇:Web日志分析">第2章第3篇:Web日志分析</span>
+            <span class="post-date" title="2019-10-16 13:42:00">2019/10/16</span>
+        </a>
+        
+        <a  class="日志分析 "
+           href="/2019/10/16/第2篇：Linux日志分析/"
+           data-tag="第二章"
+           data-author="" >
+            <span class="post-title" title="第2章第2篇:Linux日志分析">第2章第2篇:Linux日志分析</span>
+            <span class="post-date" title="2019-10-16 13:42:00">2019/10/16</span>
+        </a>
+        
+        <a  class="linux "
+           href="/2019/10/16/第1篇：SSH暴力破解/"
+           data-tag="第三章"
+           data-author="" >
+            <span class="post-title" title="第3章第1篇：SSH暴力破解">第3章第1篇：SSH暴力破解</span>
+            <span class="post-date" title="2019-10-16 13:41:00">2019/10/16</span>
+        </a>
+        
+        <a  class="日志分析 "
+           href="/2019/10/16/第4篇：MSSQL日志分析/"
+           data-tag="第二章"
+           data-author="" >
+            <span class="post-title" title="第2章第4篇:MSSQL日志分析">第2章第4篇:MSSQL日志分析</span>
+            <span class="post-date" title="2019-10-16 13:41:00">2019/10/16</span>
+        </a>
+        
+        <a  class="日志分析 "
+           href="/2019/10/16/第5篇：MySQL日志分析/"
+           data-tag="第二章"
+           data-author="" >
+            <span class="post-title" title="第2章第5篇:MySQL日志分析">第2章第5篇:MySQL日志分析</span>
+            <span class="post-date" title="2019-10-16 13:41:00">2019/10/16</span>
+        </a>
+        
+        <a  class="linux "
+           href="/2019/10/16/第3篇：挖矿病毒/"
+           data-tag="第三章"
+           data-author="" >
+            <span class="post-title" title="第3章第3篇：挖矿病毒">第3章第3篇：挖矿病毒</span>
+            <span class="post-date" title="2019-10-16 13:40:00">2019/10/16</span>
+        </a>
+        
+        <a  class="linux "
+           href="/2019/10/16/第2篇：捕捉短连接/"
+           data-tag="第三章"
+           data-author="" >
+            <span class="post-title" title="第3章第2篇：捕捉短连接">第3章第2篇：捕捉短连接</span>
+            <span class="post-date" title="2019-10-16 13:40:00">2019/10/16</span>
+        </a>
+        
+        <a  class="linux "
+           href="/2019/10/16/第4篇：盖茨木马/"
+           data-tag="第三章"
+           data-author="" >
+            <span class="post-title" title="第3章第4篇：盖茨木马">第3章第4篇：盖茨木马</span>
+            <span class="post-date" title="2019-10-16 13:40:00">2019/10/16</span>
+        </a>
+        
+        <a  class="web实战 "
+           href="/2019/10/16/第8篇：管理员账号被篡改/"
+           data-tag="第五章"
+           data-author="" >
+            <span class="post-title" title="第5章第8篇：管理员账号被篡改">第5章第8篇：管理员账号被篡改</span>
+            <span class="post-date" title="2019-10-16 13:39:00">2019/10/16</span>
+        </a>
+        
+        <a  class="windows "
+           href="/2019/10/16/第2篇：蠕虫病毒/"
+           data-tag="第四章"
+           data-author="" >
+            <span class="post-title" title="第4章第2篇：蠕虫病毒">第4章第2篇：蠕虫病毒</span>
+            <span class="post-date" title="2019-10-16 13:39:00">2019/10/16</span>
+        </a>
+        
+        <a  class="linux "
+           href="/2019/10/16/第5篇：DDOS病毒/"
+           data-tag="第三章"
+           data-author="" >
+            <span class="post-title" title="第3章第5篇：DDOS病毒">第3章第5篇：DDOS病毒</span>
+            <span class="post-date" title="2019-10-16 13:39:00">2019/10/16</span>
+        </a>
+        
+        <a  class="windows "
+           href="/2019/10/16/第1篇：FTP暴力破解/"
+           data-tag="第四章"
+           data-author="" >
+            <span class="post-title" title="第4章第1篇：FTP暴力破解">第4章第1篇：FTP暴力破解</span>
+            <span class="post-date" title="2019-10-16 13:39:00">2019/10/16</span>
+        </a>
+        
+        <a  class="windows "
+           href="/2019/10/16/第4篇：ARP病毒/"
+           data-tag="第四章"
+           data-author="" >
+            <span class="post-title" title="第4章第4篇：ARP病毒">第4章第4篇：ARP病毒</span>
+            <span class="post-date" title="2019-10-16 13:38:00">2019/10/16</span>
+        </a>
+        
+        <a  class="windows "
+           href="/2019/10/16/第6篇：挖矿病毒（二）/"
+           data-tag="第四章"
+           data-author="" >
+            <span class="post-title" title="第4章第6篇：挖矿病毒（二)">第4章第6篇：挖矿病毒（二)</span>
+            <span class="post-date" title="2019-10-16 13:38:00">2019/10/16</span>
+        </a>
+        
+        <a  class="windows "
+           href="/2019/10/16/第5篇：挖矿病毒（一）/"
+           data-tag="第四章"
+           data-author="" >
+            <span class="post-title" title="第4章第5篇：挖矿病毒（一）">第4章第5篇：挖矿病毒（一）</span>
+            <span class="post-date" title="2019-10-16 13:38:00">2019/10/16</span>
+        </a>
+        
+        <a  class="windows "
+           href="/2019/10/16/第3篇：勒索病毒/"
+           data-tag="第四章"
+           data-author="" >
+            <span class="post-title" title="第4章第3篇：勒索病毒">第4章第3篇：勒索病毒</span>
+            <span class="post-date" title="2019-10-16 13:38:00">2019/10/16</span>
+        </a>
+        
+        <a  class="应急响应 "
+           href="/2019/10/16/第1篇：Window入侵排查/"
+           data-tag="第一章"
+           data-author="" >
+            <span class="post-title" title="第1章第1篇：window入侵排查">第1章第1篇：window入侵排查</span>
+            <span class="post-date" title="2019-10-16 13:37:00">2019/10/16</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/10/16/ 应急响应实战笔记/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="应急响应">应急响应</span>
+            <span class="post-date" title="2019-10-16 12:30:54">2019/10/16</span>
+        </a>
+        
+        <a  class="内网 "
+           href="/2019/10/14/密码抓取/"
+           data-tag="密码抓取"
+           data-author="" >
+            <span class="post-title" title="密码抓取">密码抓取</span>
+            <span class="post-date" title="2019-10-14 20:46:00">2019/10/14</span>
+        </a>
+        
+        <a  class="web "
+           href="/2019/10/07/discuz-x3-4-getshell/"
+           data-tag="web"
+           data-author="" >
+            <span class="post-title" title="discuz x3.4 getshell">discuz x3.4 getshell</span>
+            <span class="post-date" title="2019-10-07 22:59:00">2019/10/07</span>
+        </a>
+        
+        <a  class="web "
+           href="/2019/10/07/google-hack-语法/"
+           data-tag="web"
+           data-author="" >
+            <span class="post-title" title="google hack 语法">google hack 语法</span>
+            <span class="post-date" title="2019-10-07 20:07:04">2019/10/07</span>
+        </a>
+        
+        <a  class="内网 "
+           href="/2019/10/07/windows中常见后门持久化方法总结/"
+           data-tag="后门"
+           data-author="" >
+            <span class="post-title" title="windows后门持久化">windows后门持久化</span>
+            <span class="post-date" title="2019-10-07 13:04:29">2019/10/07</span>
+        </a>
+        
+        <a  class="msf "
+           href="/2019/10/07/Meterpreter扩展速查表/"
+           data-tag="msf"
+           data-author="" >
+            <span class="post-title" title="Meterpreter扩展速查表">Meterpreter扩展速查表</span>
+            <span class="post-date" title="2019-10-07 08:22:28">2019/10/07</span>
+        </a>
+        
+        <a  class="msf "
+           href="/2019/10/07/Metasploit命令速查表/"
+           data-tag="msf"
+           data-author="" >
+            <span class="post-title" title="Metasploit命令速查表">Metasploit命令速查表</span>
+            <span class="post-date" title="2019-10-07 08:15:43">2019/10/07</span>
+        </a>
+        
+        <a  class="msf "
+           href="/2019/10/06/Meterpreter命令速查表/"
+           data-tag="msf"
+           data-author="" >
+            <span class="post-title" title="Meterpreter命令速查表">Meterpreter命令速查表</span>
+            <span class="post-date" title="2019-10-06 23:23:23">2019/10/06</span>
+        </a>
+        
+        <a  class="web "
+           href="/2019/10/06/sqlmap/"
+           data-tag="sqlmap"
+           data-author="" >
+            <span class="post-title" title="sqlmap">sqlmap</span>
+            <span class="post-date" title="2019-10-06 23:15:44">2019/10/06</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/10/06/信息收集/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="信息收集">信息收集</span>
+            <span class="post-date" title="2019-10-06 23:11:29">2019/10/06</span>
+        </a>
+        
+        <a  class="web "
+           href="/2019/10/06/phpmyadmin后台getshell/"
+           data-tag="phpmyadmin"
+           data-author="" >
+            <span class="post-title" title="phpmyadmin后台getshell">phpmyadmin后台getshell</span>
+            <span class="post-date" title="2019-10-06 22:53:19">2019/10/06</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/10/06/py一句话开启http服务/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="py一句话开启http服务">py一句话开启http服务</span>
+            <span class="post-date" title="2019-10-06 18:52:55">2019/10/06</span>
+        </a>
+        
+    </nav>
+</div>
+    </div>
+    <div class="hide-list">
+        <div class="semicircle">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div class="post">
+    <div class="pjax">
+        <article id="post-第1篇：Window日志分析" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">第2章第1篇:Window日志分析</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        <span class="book">
+            
+                <a href="javascript:" data-rel="日志分析">日志分析</a>
+            
+        </span>
+        
+        
+        <span class="tag">
+            
+            <a href="javascript:" class="color4">第二章</a>
+            
+        </span>
+        
+    </div>
+    <div class="article-meta">
+        
+        创建时间:<time class="date" title='更新时间: 2019-10-17 10:40:01'>2019-10-16 13:42</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        <span>字数:2.2k</span>
+        
+        
+        <span id="busuanzi_container_page_pv">
+            阅读:<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+        <span class="top-comment" title="跳转至评论区">
+            <a href="#comments">
+                评论:<span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </a>
+        </span>
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第1篇-Window日志分析"><span class="toc-text">第1篇:Window日志分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#0x01-Window事件日志简介"><span class="toc-text">0x01 Window事件日志简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0X02-审核策略与事件查看器"><span class="toc-text">0X02 审核策略与事件查看器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x03-事件日志分析"><span class="toc-text">0x03 事件日志分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x04-日志分析工具"><span class="toc-text">0x04 日志分析工具</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Log-Parser"><span class="toc-text">Log Parser</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#LogParser-Lizard"><span class="toc-text">LogParser Lizard</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Event-Log-Explorer"><span class="toc-text">Event Log Explorer</span></a></li></ol></li></ol></li></ol>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<h2 id="第1篇-Window日志分析"><a href="#第1篇-Window日志分析" class="headerlink" title="第1篇:Window日志分析"></a>第1篇:Window日志分析</h2><h3 id="0x01-Window事件日志简介"><a href="#0x01-Window事件日志简介" class="headerlink" title="0x01 Window事件日志简介"></a>0x01 Window事件日志简介</h3><p>Windows系统日志是记录系统中硬件、软件和系统问题的信息，同时还可以监视系统中发生的事件。用户可以通过它来检查错误发生的原因，或者寻找受到攻击时攻击者留下的痕迹。</p>
+<p>Windows主要有以下三类日志记录系统事件：应用程序日志、系统日志和安全日志。</p>
+<p><strong>系统日志</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">记录操作系统组件产生的事件，主要包括驱动程序、系统组件和应用软件的崩溃以及数据丢失错误等。系统日志中记录的时间类型由Windows NT/2000操作系统预先定义。</span><br><span class="line"></span><br><span class="line">默认位置： %SystemRoot%\System32\Winevt\Logs\System.evtx</span><br></pre></td></tr></table></figure>
+
+<p><strong>应用程序日志</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">包含由应用程序或系统程序记录的事件，主要记录程序运行方面的事件，例如数据库程序可以在应用程序日志中记录文件错误，程序开发人员可以自行决定监视哪些事件。如果某个应用程序出现崩溃情况，那么我们可以从程序事件日志中找到相应的记录，也许会有助于你解决问题。 </span><br><span class="line"></span><br><span class="line">默认位置：%SystemRoot%\System32\Winevt\Logs\Application.evtx</span><br></pre></td></tr></table></figure>
+
+<p><strong>安全日志</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">记录系统的安全审计事件，包含各种类型的登录日志、对象访问日志、进程追踪日志、特权使用、帐号管理、策略变更、系统事件。安全日志也是调查取证中最常用到的日志。默认设置下，安全性日志是关闭的，管理员可以使用组策略来启动安全性日志，或者在注册表中设置审核策略，以便当安全性日志满后使系统停止响应。</span><br><span class="line"></span><br><span class="line">默认位置：%SystemRoot%\System32\Winevt\Logs\Security.evtx</span><br></pre></td></tr></table></figure>
+
+<p>​    系统和应用程序日志存储着故障排除信息，对于系统管理员更为有用。 安全日志记录着事件审计信息，包括用户验证（登录、远程访问等）和特定用户在认证后对系统做了什么，对于调查人员而言，更有帮助。 </p>
+<h3 id="0X02-审核策略与事件查看器"><a href="#0X02-审核策略与事件查看器" class="headerlink" title="0X02 审核策略与事件查看器"></a>0X02 审核策略与事件查看器</h3><p>Windows Server 2008 R2 系统的审核功能在默认状态下并没有启用 ，建议开启审核策略，若日后系统出现故障、安全事故则可以查看系统的日志文件，排除故障，追查入侵者的信息等。</p>
+<p>PS：默认状态下，也会记录一些简单的日志，日志默认大小20M</p>
+<p><strong>设置1</strong>：开始 → 管理工具 → 本地安全策略 → 本地策略 → 审核策略，参考配置操作：</p>
+<p><img src="/images/log-1-1.png" alt></p>
+<p><strong>设置2</strong>：设置合理的日志属性，即日志最大大小、事件覆盖阀值等： </p>
+<p><img src="/images/log-1-2.png" alt></p>
+<p><strong>查看系统日志方法：</strong></p>
+<ol>
+<li><p>在<strong>“开始”</strong>菜单上，依次指向<strong>“所有程序”</strong>、<strong>“管理工具”</strong>，然后单击<strong>“事件查看器”</strong></p>
+</li>
+<li><p>按 “<strong>Window+R</strong>“，输入 ”<strong>eventvwr.msc</strong>“ 也可以直接进入“<strong>事件查看器</strong>” </p>
+<p><img src="/images/log-1-3.png" alt></p>
+</li>
+</ol>
+<h3 id="0x03-事件日志分析"><a href="#0x03-事件日志分析" class="headerlink" title="0x03 事件日志分析"></a>0x03 事件日志分析</h3><p>对于Windows事件日志分析，不同的EVENT ID代表了不同的意义，摘录一些常见的安全事件的说明：</p>
+<table>
+<thead>
+<tr>
+<th align="left">事件ID</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">4624</td>
+<td>登录成功</td>
+</tr>
+<tr>
+<td align="left">4625</td>
+<td>登录失败</td>
+</tr>
+<tr>
+<td align="left">4634</td>
+<td>注销成功</td>
+</tr>
+<tr>
+<td align="left">4647</td>
+<td>用户启动的注销</td>
+</tr>
+<tr>
+<td align="left">4672</td>
+<td>使用超级用户（如管理员）进行登录</td>
+</tr>
+<tr>
+<td align="left">4720</td>
+<td>创建用户</td>
+</tr>
+</tbody></table>
+<p>每个成功登录的事件都会标记一个登录类型，不同登录类型代表不同的方式：</p>
+<table>
+<thead>
+<tr>
+<th align="left">登录类型</th>
+<th>描述</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">2</td>
+<td>交互式登录（Interactive）</td>
+<td>用户在本地进行登录。</td>
+</tr>
+<tr>
+<td align="left">3</td>
+<td>网络（Network）</td>
+<td>最常见的情况就是连接到共享文件夹或共享打印机时。</td>
+</tr>
+<tr>
+<td align="left">4</td>
+<td>批处理（Batch）</td>
+<td>通常表明某计划任务启动。</td>
+</tr>
+<tr>
+<td align="left">5</td>
+<td>服务（Service）</td>
+<td>每种服务都被配置在某个特定的用户账号下运行。</td>
+</tr>
+<tr>
+<td align="left">7</td>
+<td>解锁（Unlock）</td>
+<td>屏保解锁。</td>
+</tr>
+<tr>
+<td align="left">8</td>
+<td>网络明文（NetworkCleartext）</td>
+<td>登录的密码在网络上是通过明文传输的，如FTP。</td>
+</tr>
+<tr>
+<td align="left">9</td>
+<td>新凭证（NewCredentials）</td>
+<td>使用带/Netonly参数的RUNAS命令运行一个程序。</td>
+</tr>
+<tr>
+<td align="left">10</td>
+<td>远程交互，（RemoteInteractive）</td>
+<td>通过终端服务、远程桌面或远程协助访问计算机。</td>
+</tr>
+<tr>
+<td align="left">11</td>
+<td>缓存交互（CachedInteractive）</td>
+<td>以一个域用户登录而又没有域控制器可用</td>
+</tr>
+</tbody></table>
+<p>关于更多EVENT ID，详见微软官方网站上找到了“Windows Vista 和 Windows Server 2008 中的安全事件的说明”。</p>
+<blockquote>
+<p>原文链接 ：<a href="https://support.microsoft.com/zh-cn/help/977519/description-of-security-events-in-windows-7-and-in-windows-server-2008" target="_blank" rel="noopener">https://support.microsoft.com/zh-cn/help/977519/description-of-security-events-in-windows-7-and-in-windows-server-2008</a></p>
+</blockquote>
+<p>案例1：可以利用eventlog事件来查看系统账号登录情况：</p>
+<ol>
+<li><p>在<strong>“开始”</strong>菜单上，依次指向<strong>“所有程序”</strong>、<strong>“管理工具”</strong>，然后单击<strong>“事件查看器”</strong>；</p>
+</li>
+<li><p>在事件查看器中，单击<strong>“安全”</strong>，查看安全日志；</p>
+</li>
+<li><p>在安全日志右侧操作中，点击<strong>“筛选当前日志”</strong>，输入事件ID进行筛选。</p>
+<p>4624  –登录成功<br>4625  –登录失败<br>4634 – 注销成功<br>4647 – 用户启动的注销<br>4672 – 使用超级用户（如管理员）进行登录</p>
+</li>
+</ol>
+<p>我们输入事件ID：4625进行日志筛选，发现事件ID：4625，事件数175904，即用户登录失败了175904次，那么这台服务器管理员账号可能遭遇了暴力猜解。</p>
+<p><img src="/images/log-1-4.png" alt></p>
+<p>案例2：可以利用eventlog事件来查看计算机开关机的记录： </p>
+<p>1、在<strong>“开始”</strong>菜单上，依次指向<strong>“所有程序”</strong>、<strong>“管理工具”</strong>，然后单击<strong>“事件查看器”</strong>；</p>
+<p>2、在事件查看器中，单击<strong>“系统”</strong>，查看系统日志；</p>
+<p>3、在系统日志右侧操作中，点击<strong>“筛选当前日志”</strong>，输入事件ID进行筛选。</p>
+<p>其中事件ID 6006 ID6005、 ID 6009就表示不同状态的机器的情况（开关机）。<br>    6005 信息 EventLog 事件日志服务已启动。(开机)<br>    6006 信息 EventLog 事件日志服务已停止。(关机)<br>    6009 信息 EventLog 按ctrl、alt、delete键(非正常)关机</p>
+<p>我们输入事件ID：6005-6006进行日志筛选，发现了两条在2018/7/6 17:53:51左右的记录，也就是我刚才对系统进行重启的时间。</p>
+<p><img src="/images/log-1-5.png" alt></p>
+<h3 id="0x04-日志分析工具"><a href="#0x04-日志分析工具" class="headerlink" title="0x04 日志分析工具"></a>0x04 日志分析工具</h3><h4 id="Log-Parser"><a href="#Log-Parser" class="headerlink" title="Log Parser"></a>Log Parser</h4><p>Log Parser（是微软公司出品的日志分析工具，它功能强大，使用简单，可以分析基于文本的日志文件、XML 文件、CSV（逗号分隔符）文件，以及操作系统的事件日志、注册表、文件系统、Active Directory。它可以像使用 SQL 语句一样查询分析这些数据，甚至可以把分析结果以各种图表的形式展现出来。</p>
+<p>Log Parser 2.2下载地址：<a href="https://www.microsoft.com/en-us/download/details.aspx?id=24659" target="_blank" rel="noopener">https://www.microsoft.com/en-us/download/details.aspx?id=24659</a></p>
+<p>Log Parser 使用示例：<a href="https://mlichtenberg.wordpress.com/2011/02/03/log-parser-rocks-more-than-50-examples/" target="_blank" rel="noopener">https://mlichtenberg.wordpress.com/2011/02/03/log-parser-rocks-more-than-50-examples/</a></p>
+<p><img src="/images/log-1-6.png" alt></p>
+<p><strong>基本查询结构</strong> </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Logparser.exe –i:EVT –o:DATAGRID &quot;SELECT * FROM c:\xx.evtx&quot;</span><br></pre></td></tr></table></figure>
+
+<p><strong>使用Log Parser分析日志</strong></p>
+<p>1、查询登录成功的事件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">登录成功的所有事件</span><br><span class="line">LogParser.exe -i:EVT –o:DATAGRID  &quot;SELECT *  FROM c:\Security.evtx where EventID=4624&quot;</span><br><span class="line"></span><br><span class="line">指定登录时间范围的事件：</span><br><span class="line">LogParser.exe -i:EVT –o:DATAGRID  &quot;SELECT *  FROM c:\Security.evtx where TimeGenerated&gt;&apos;2018-06-19 23:32:11&apos; and TimeGenerated&lt;&apos;2018-06-20 23:34:00&apos; and EventID=4624&quot;</span><br><span class="line"></span><br><span class="line">提取登录成功的用户名和IP：</span><br><span class="line">LogParser.exe -i:EVT  –o:DATAGRID  &quot;SELECT EXTRACT_TOKEN(Message,13,&apos; &apos;) as EventType,TimeGenerated as LoginTime,EXTRACT_TOKEN(Strings,5,&apos;|&apos;) as Username,EXTRACT_TOKEN(Message,38,&apos; &apos;) as Loginip FROM c:\Security.evtx where EventID=4624&quot;</span><br></pre></td></tr></table></figure>
+
+<p> 2、查询登录失败的事件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">登录失败的所有事件：</span><br><span class="line">LogParser.exe -i:EVT –o:DATAGRID  &quot;SELECT *  FROM c:\Security.evtx where EventID=4625&quot;</span><br><span class="line"></span><br><span class="line">提取登录失败用户名进行聚合统计：</span><br><span class="line">LogParser.exe  -i:EVT &quot;SELECT  EXTRACT_TOKEN(Message,13,&apos; &apos;)  as EventType,EXTRACT_TOKEN(Message,19,&apos; &apos;) as user,count(EXTRACT_TOKEN(Message,19,&apos; &apos;)) as Times,EXTRACT_TOKEN(Message,39,&apos; &apos;) as Loginip FROM c:\Security.evtx where EventID=4625 GROUP BY Message&quot;</span><br></pre></td></tr></table></figure>
+
+<p>3、系统历史开关机记录：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">LogParser.exe -i:EVT –o:DATAGRID  &quot;SELECT TimeGenerated,EventID,Message FROM c:\System.evtx where EventID=6005 or EventID=6006&quot;</span><br></pre></td></tr></table></figure>
+
+<h4 id="LogParser-Lizard"><a href="#LogParser-Lizard" class="headerlink" title="LogParser Lizard"></a>LogParser Lizard</h4><p>对于GUI环境的Log Parser Lizard，其特点是比较易于使用，甚至不需要记忆繁琐的命令，只需要做好设置，写好基本的SQL语句，就可以直观的得到结果。</p>
+<p>下载地址：<a href="http://www.lizard-labs.com/log_parser_lizard.aspx" target="_blank" rel="noopener">http://www.lizard-labs.com/log_parser_lizard.aspx</a></p>
+<p>依赖包：Microsoft .NET Framework 4 .5，下载地址：<a href="https://www.microsoft.com/en-us/download/details.aspx?id=42642" target="_blank" rel="noopener">https://www.microsoft.com/en-us/download/details.aspx?id=42642</a></p>
+<p>查询最近用户登录情况：</p>
+<p><img src="/images/log-1-7.png" alt></p>
+<h4 id="Event-Log-Explorer"><a href="#Event-Log-Explorer" class="headerlink" title="Event Log Explorer"></a>Event Log Explorer</h4><p>Event Log Explorer是一款非常好用的Windows日志分析工具。可用于查看，监视和分析跟事件记录，包括安全，系统，应用程序和其他微软Windows 的记录被记载的事件，其强大的过滤功能可以快速的过滤出有价值的信息。</p>
+<p>下载地址：<a href="https://event-log-explorer.en.softonic.com/" target="_blank" rel="noopener">https://event-log-explorer.en.softonic.com/</a></p>
+<p><img src="/images/log-1-8.png" alt></p>
+<p>参考链接：</p>
+<p>Windows日志分析   <a href="https://mp.weixin.qq.com/s/ige5UO8WTuOOO3yRw-LeqQ" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/ige5UO8WTuOOO3yRw-LeqQ</a></p>
+
+      
+       <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 cxaqhq@qq.com </span>
+    </div>
+</article>
+
+
+<p>
+    <a href="javascript:void(0)" class="dashang" onclick="dashangToggle()">赏</a>
+</p>
+
+
+<div class="article_copyright">
+    <p><span class="copy-title">文章标题:</span>第2章第1篇:Window日志分析</p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">2.2k</span></p>
+    <p><span class="copy-title">本文作者:</span><a href="javascript:void(0)" title="cx">cx</a></p>
+    <p><span class="copy-title">发布时间:</span>2019-10-16, 13:42:00</p>
+    <p><span class="copy-title">最后更新:</span>2019-10-17, 10:40:01</p>
+  
+</div>
+
+
+
+    <div id="comments"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+
+<script type="text/javascript">
+    $.getScript('/js/gitalk.js', function () {
+        var gitalk = new Gitalk({
+            clientID: 'e73781144304d69620be',
+            clientSecret: 'fc7949d93e6de6f18c4acabe3f7ac4a48047bdd3',
+            repo: 'cx',
+            owner: 'cxaqhq',
+            admin: ['cxaqhq'],
+            id: decodeURI(location.pathname),
+            distractionFreeMode: 'true',
+            language: 'zh-CN',
+            perPage: parseInt('10',10)
+        })
+        gitalk.render('comments')
+    })
+</script>
+
+
+
+
+    
+
+
+
+
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">©2019</p>
+<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+
+    </div>
+    <div class="full-toc">
+        <button class="full"><span class="min "></span></button>
+<button class="post-toc-menu"><span class="post-toc-menu-icons"></span></button>
+<div class="post-toc"><span class="post-toc-title">目录</span>
+    <div class="post-toc-content">
+
+    </div>
+</div>
+<a class="" id="rocket" href="javascript:void(0)"></a>
+    </div>
+</div>
+<div class="acParent"></div>
+
+<div class="hide_box" onclick="dashangToggle()"></div>
+<div class="shang_box">
+    <a class="shang_close" href="javascript:void(0)" onclick="dashangToggle()">×</a>
+    <div class="shang_tit">
+        <p>喜欢就点赞,疼爱就打赏</p>
+    </div>
+    <div class="shang_payimg">
+        <div class="pay_img">
+            <img src="/img/zfb.jpg" class="alipay" title="扫码支持">
+            <img src="/img/wx.jpg" class="weixin" title="扫码支持">
+        </div>
+    </div>
+    <div class="shang_payselect">
+        <span><label><input type="radio" name="pay" checked value="alipay">支付宝</label></span><span><label><input type="radio" name="pay" value="weixin">微信</label></span>
+    </div>
+</div>
+
+
+</body>
+<script src="/js/jquery.pjax.js?v=1.0.1" ></script>
+
+<script src="/js/script.js?v=1.0.1" ></script>
+<script>
+    var img_resize = 'default';
+    /*作者、标签的自动补全*/
+    $(function () {
+        $('.search').AutoComplete({
+            'data': ['#msf','#web','#phpmyadmin','#sqlmap','#密码抓取','#第四章','#第三章','#第五章','#第二章','#第一章','#后门','#法律',],
+            'itemHeight': 20,
+            'width': 418
+        }).AutoComplete('show');
+    })
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $(".post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+        $("input[name=pay]").on("click", function () {
+            if($("input[name=pay]:checked").val()=="weixin"){
+                $(".shang_box .shang_payimg .pay_img").addClass("weixin_img");
+            } else {
+                $(".shang_box .shang_payimg .pay_img").removeClass("weixin_img");
+            }
+        })
+        
+
+        /*高亮代码块行号*/
+        
+        $('pre code').each(function(){
+            var lines = $(this).text().split('\n').length - 1, widther='';
+            if (lines>99) {
+                widther = 'widther'
+            }
+            var $numbering = $('<ul/>').addClass('pre-numbering ' + widther).attr("unselectable","on");
+            $(this).addClass('has-numbering ' + widther)
+                    .parent()
+                    .append($numbering);
+            for(var i=1;i<=lines;i++){
+                $numbering.append($('<li/>').text(i));
+            }
+        });
+        
+
+        /*访问数量*/
+        
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js");
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+
+        
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+    function dashangToggle() {
+        $(".shang_box").fadeToggle();
+        $(".hide_box").fadeToggle();
+    }
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<style>
+    pre{
+        position: relative;
+        margin-bottom: 24px;
+        border-radius: 10px;
+        border: 1px solid #e2dede;
+        background: #FFF;
+        overflow: hidden;
+    }
+    code.has-numbering{
+        margin-left: 30px;
+    }
+    code.has-numbering.widther{
+        margin-left: 35px;
+    }
+    .pre-numbering{
+        margin: 0px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 20px;
+        padding: 0.5em 3px 0.7em 5px;
+        border-right: 1px solid #C3CCD0;
+        text-align: right;
+        color: #AAA;
+        background-color: #fafafa;
+    }
+    .pre-numbering.widther {
+        width: 35px;
+    }
+</style>
+
+<!--自定义样式设置-->
+<style>
+    
+    
+    .nav {
+        width: 542px;
+    }
+    .nav.fullscreen {
+        margin-left: -542px;
+    }
+    .nav-left {
+        width: 120px;
+    }
+    
+    
+    @media screen and (max-width: 1468px) {
+        .nav {
+            width: 492px;
+        }
+        .nav.fullscreen {
+            margin-left: -492px;
+        }
+        .nav-left {
+            width: 100px;
+        }
+    }
+    
+    
+    @media screen and (max-width: 1024px) {
+        .nav {
+            width: 492px;
+            margin-left: -492px
+        }
+        .nav.fullscreen {
+            margin-left: 0;
+        }
+        .nav .hide-list.fullscreen {
+            left: 492px
+        }
+    }
+    
+    @media screen and (max-width: 426px) {
+        .nav {
+            width: 100%;
+        }
+        .nav-left {
+            width: 100%;
+        }
+    }
+    
+    
+    .nav-right .title-list nav a .post-title, .nav-right .title-list #local-search-result a .post-title {
+        color: #383636;
+    }
+    
+    
+    .nav-right .title-list nav a .post-date, .nav-right .title-list #local-search-result a .post-date {
+        color: #5e5e5f;
+    }
+    
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+
+    /*列表样式*/
+    
+    .post .pjax article .article-entry>ol, .post .pjax article .article-entry>ul, .post .pjax article>ol, .post .pjax article>ul{
+        border: #e2dede solid 1px;
+        border-radius: 10px;
+        padding: 10px 32px 10px 56px;
+    }
+    .post .pjax article .article-entry li>ol, .post .pjax article .article-entry li>ul,.post .pjax article li>ol, .post .pjax article li>ul{
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    .post .pjax article .article-entry>ol>li, .post .pjax article .article-entry>ul>li,.post .pjax article>ol>li, .post .pjax article>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    .post .pjax article .article-entry li>ol>li, .post .pjax article .article-entry li>ul>li,.post .pjax article li>ol>li, .post .pjax article li>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    
+
+    /* 背景图样式 */
+    
+    
+
+
+    /*引用块样式*/
+    
+
+    /*文章列表背景图*/
+    
+    .nav-right:before {
+        content: ' ';
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.3;
+        background: url("https://i.loli.net/2019/07/22/5d3521411f3f169375.png");
+        background-repeat: no-repeat;
+        background-position: 50% 0;
+        -ms-background-size: cover;
+        -o-background-size: cover;
+        -moz-background-size: cover;
+        -webkit-background-size: cover;
+        background-size: cover;
+    }
+    
+
+    
+</style>
+
+
+
+
+
+
+
+</html>

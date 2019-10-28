@@ -1,0 +1,1142 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <title>第4章第6篇：挖矿病毒（二) | cx网络安全小站</title>
+  <meta name="keywords" content=" 第四章 ">
+  <meta name="description" content="第4章第6篇：挖矿病毒（二) | cx网络安全小站">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="更新系统（可选） 12sudo apt-get updatesudo apt-get upgrade  开始安装 1，安装MySQL在终端输入以下命令，安装MySQL： sudo apt install mariadb-server 2，设置数据库在终端中，运行MySQL安全安装命令 sudo mysql_secure_installation此时系统会询问你：Enter current pass">
+<meta property="og:type" content="article">
+<meta property="og:title" content="树莓派安装MySQL 搭建数据库">
+<meta property="og:url" content="http://yoursite.com/2019/10/28/树莓派安装MySQL-搭建数据库/index.html">
+<meta property="og:site_name" content="cx网络安全小站">
+<meta property="og:description" content="更新系统（可选） 12sudo apt-get updatesudo apt-get upgrade  开始安装 1，安装MySQL在终端输入以下命令，安装MySQL： sudo apt install mariadb-server 2，设置数据库在终端中，运行MySQL安全安装命令 sudo mysql_secure_installation此时系统会询问你：Enter current pass">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-10-28T00:46:26.435Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="树莓派安装MySQL 搭建数据库">
+<meta name="twitter:description" content="更新系统（可选） 12sudo apt-get updatesudo apt-get upgrade  开始安装 1，安装MySQL在终端输入以下命令，安装MySQL： sudo apt install mariadb-server 2，设置数据库在终端中，运行MySQL安全安装命令 sudo mysql_secure_installation此时系统会询问你：Enter current pass">
+
+
+<link rel="icon" href="/img/cx.jpg">
+
+<link href="/css/style.css?v=1.0.1" rel="stylesheet">
+
+<link href="/css/hl_theme/atom-light.css?v=1.0.1" rel="stylesheet">
+
+<link href="//cdn.bootcss.com/animate.css/3.5.2/animate.min.css" rel="stylesheet">
+<link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="/js/jquery.autocomplete.min.js?v=1.0.1"></script>
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+
+<script src="/js/iconfont.js?v=1.0.1"></script>
+
+</head>
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="true">
+  <input class="theme_blog_path" value>
+</div>
+
+<body>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/" class="avatar_target">
+    <img class="avatar" src="/img/cx.jpg" />
+</a>
+<div class="author">
+    <span>cx</span>
+</div>
+
+<div class="icon">
+    
+        
+    
+        
+        <a title="github" href="https://github.com/cxaqhq" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-github"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+        <a title="zhihu" href="https://www.zhihu.com/people/xiao-yao-you-41-22" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-zhihu"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+    
+        
+    
+        
+    
+        
+        <a title="email" href="mailto:cxaqhq@qq.com" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-email"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="qq" href="http://wpa.qq.com/msgrd?v=3&uin=3149820232&site=qq&menu=yes" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-qq"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+    
+        
+    
+</div>
+
+
+
+
+<ul>
+    <li><div class="all active">全部文章<small>(49)</small></div></li>
+    
+        
+            
+            <li><div data-rel="msf">msf<small>(3)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="web">web<small>(4)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="内网">内网<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="windows">windows<small>(6)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="linux">linux<small>(5)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="web实战">web实战<small>(8)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="日志分析">日志分析<small>(5)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="应急响应">应急响应<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="法律">法律<small>(1)</small></div>
+                
+            </li>
+            
+        
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+    
+    
+    
+    
+    </div>
+    <div></div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="49">
+<input type="hidden" id="yelog_site_word_count" value="55.3k">
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        友情链接
+        <i class="back-title-list"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+            <li><a target="_blank" href="http://yelog.org/">叶落阁</a></li>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <form onkeydown="if(event.keyCode==13){return false;}">
+        <input class="search" type="text" placeholder="以 in: 开头进行全文搜索" autocomplete="off"id="local-search-input" >
+        <i class="cross"></i>
+        <span>
+            <label for="tagswitch">Tags:</label>
+            <input id="tagswitch" type="checkbox" style="display: none" />
+            <i id="tagsWitchIcon"></i>
+        </span>
+    </form>
+    <div class="tags-list">
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">msf</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">web</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color1">phpmyadmin</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color2">sqlmap</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color5">密码抓取</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">第四章</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">第三章</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">第五章</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">第二章</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color4">第一章</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">后门</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a href="javascript:" class="color3">法律</a>
+    </li>
+    
+    <div class="clearfix"></div>
+</div>
+
+    
+    <div id="local-search-result">
+
+    </div>
+    
+    <nav id="title-list-nav">
+        
+        <a id="top" class=""
+           href="/2019/10/06/第一篇/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="第一篇">第一篇</span>
+            <span class="post-date" title="2019-10-06 10:26:26">2019/10/06</span>
+        </a>
+        
+        <a id="top" class="法律 "
+           href="/2019/10/06/网络安全法/"
+           data-tag="法律"
+           data-author="" >
+            <span class="post-title" title="网络安全法">网络安全法</span>
+            <span class="post-date" title="2019-10-06 12:26:31">2019/10/06</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/10/28/树莓派安装MySQL-搭建数据库/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="树莓派安装MySQL 搭建数据库">树莓派安装MySQL 搭建数据库</span>
+            <span class="post-date" title="2019-10-28 08:42:07">2019/10/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/10/28/树莓派安装teamviewer/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="树莓派安装teamviewer">树莓派安装teamviewer</span>
+            <span class="post-date" title="2019-10-28 08:38:57">2019/10/28</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/10/27/树莓派-4b折腾/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="树莓派 4b折腾">树莓派 4b折腾</span>
+            <span class="post-date" title="2019-10-27 23:27:49">2019/10/27</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/10/24/攻防世界-web-wp/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="攻防世界-web-wp(新手)">攻防世界-web-wp(新手)</span>
+            <span class="post-date" title="2019-10-24 10:24:25">2019/10/24</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/10/20/内存取证-密码提取以及Volatility的使用/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="内存取证 Volatility">内存取证 Volatility</span>
+            <span class="post-date" title="2019-10-20 17:33:58">2019/10/20</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/10/19/360ctf-理论题（2019）/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="360ctf 理论题（2019）">360ctf 理论题（2019）</span>
+            <span class="post-date" title="2019-10-19 17:45:49">2019/10/19</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/10/18/sql/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="sql 速查表">sql 速查表</span>
+            <span class="post-date" title="2019-10-18 14:11:12">2019/10/18</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/10/18/自动补全的mysql客户端/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="自动补全的mysql客户端">自动补全的mysql客户端</span>
+            <span class="post-date" title="2019-10-18 13:01:46">2019/10/18</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/10/17/python操作mysql/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="python操作mysql">python操作mysql</span>
+            <span class="post-date" title="2019-10-17 13:05:13">2019/10/17</span>
+        </a>
+        
+        <a  class="web实战 "
+           href="/2019/10/16/第1篇：网站被植入Webshell/"
+           data-tag="第五章"
+           data-author="" >
+            <span class="post-title" title="第5章第1篇：网站被植入Webshell">第5章第1篇：网站被植入Webshell</span>
+            <span class="post-date" title="2019-10-16 19:30:00">2019/10/16</span>
+        </a>
+        
+        <a  class="web实战 "
+           href="/2019/10/16/第2篇：门罗币恶意挖矿/"
+           data-tag="第五章"
+           data-author="" >
+            <span class="post-title" title="第5章第2篇：门罗币恶意挖矿">第5章第2篇：门罗币恶意挖矿</span>
+            <span class="post-date" title="2019-10-16 19:30:00">2019/10/16</span>
+        </a>
+        
+        <a  class="web实战 "
+           href="/2019/10/16/第4篇：新闻源网站劫持/"
+           data-tag="第五章"
+           data-author="" >
+            <span class="post-title" title="第5章第4篇：新闻源网站劫持">第5章第4篇：新闻源网站劫持</span>
+            <span class="post-date" title="2019-10-16 19:29:00">2019/10/16</span>
+        </a>
+        
+        <a  class="web实战 "
+           href="/2019/10/16/第6篇：搜索引擎劫持/"
+           data-tag="第五章"
+           data-author="" >
+            <span class="post-title" title="第5章第6篇：搜索引擎劫持">第5章第6篇：搜索引擎劫持</span>
+            <span class="post-date" title="2019-10-16 19:29:00">2019/10/16</span>
+        </a>
+        
+        <a  class="web实战 "
+           href="/2019/10/16/第3篇：批量挂黑页/"
+           data-tag="第五章"
+           data-author="" >
+            <span class="post-title" title="第5章第3篇：批量挂黑页">第5章第3篇：批量挂黑页</span>
+            <span class="post-date" title="2019-10-16 19:29:00">2019/10/16</span>
+        </a>
+        
+        <a  class="web实战 "
+           href="/2019/10/16/第5篇：移动端劫持/"
+           data-tag="第五章"
+           data-author="" >
+            <span class="post-title" title="第5章第5篇：移动端劫持">第5章第5篇：移动端劫持</span>
+            <span class="post-date" title="2019-10-16 19:29:00">2019/10/16</span>
+        </a>
+        
+        <a  class="web实战 "
+           href="/2019/10/16/第7篇：网站首页被篡改/"
+           data-tag="第五章"
+           data-author="" >
+            <span class="post-title" title="第5章第7篇：网站首页被篡改">第5章第7篇：网站首页被篡改</span>
+            <span class="post-date" title="2019-10-16 19:28:00">2019/10/16</span>
+        </a>
+        
+        <a  class="日志分析 "
+           href="/2019/10/16/第1篇：Window日志分析/"
+           data-tag="第二章"
+           data-author="" >
+            <span class="post-title" title="第2章第1篇:Window日志分析">第2章第1篇:Window日志分析</span>
+            <span class="post-date" title="2019-10-16 13:42:00">2019/10/16</span>
+        </a>
+        
+        <a  class="应急响应 "
+           href="/2019/10/16/第2篇：Linux入侵排查/"
+           data-tag="第一章"
+           data-author="" >
+            <span class="post-title" title="第1章第2篇：Linux入侵排查">第1章第2篇：Linux入侵排查</span>
+            <span class="post-date" title="2019-10-16 13:42:00">2019/10/16</span>
+        </a>
+        
+        <a  class="日志分析 "
+           href="/2019/10/16/第3篇：Web日志分析/"
+           data-tag="第二章"
+           data-author="" >
+            <span class="post-title" title="第2章第3篇:Web日志分析">第2章第3篇:Web日志分析</span>
+            <span class="post-date" title="2019-10-16 13:42:00">2019/10/16</span>
+        </a>
+        
+        <a  class="日志分析 "
+           href="/2019/10/16/第2篇：Linux日志分析/"
+           data-tag="第二章"
+           data-author="" >
+            <span class="post-title" title="第2章第2篇:Linux日志分析">第2章第2篇:Linux日志分析</span>
+            <span class="post-date" title="2019-10-16 13:42:00">2019/10/16</span>
+        </a>
+        
+        <a  class="linux "
+           href="/2019/10/16/第1篇：SSH暴力破解/"
+           data-tag="第三章"
+           data-author="" >
+            <span class="post-title" title="第3章第1篇：SSH暴力破解">第3章第1篇：SSH暴力破解</span>
+            <span class="post-date" title="2019-10-16 13:41:00">2019/10/16</span>
+        </a>
+        
+        <a  class="日志分析 "
+           href="/2019/10/16/第4篇：MSSQL日志分析/"
+           data-tag="第二章"
+           data-author="" >
+            <span class="post-title" title="第2章第4篇:MSSQL日志分析">第2章第4篇:MSSQL日志分析</span>
+            <span class="post-date" title="2019-10-16 13:41:00">2019/10/16</span>
+        </a>
+        
+        <a  class="日志分析 "
+           href="/2019/10/16/第5篇：MySQL日志分析/"
+           data-tag="第二章"
+           data-author="" >
+            <span class="post-title" title="第2章第5篇:MySQL日志分析">第2章第5篇:MySQL日志分析</span>
+            <span class="post-date" title="2019-10-16 13:41:00">2019/10/16</span>
+        </a>
+        
+        <a  class="linux "
+           href="/2019/10/16/第3篇：挖矿病毒/"
+           data-tag="第三章"
+           data-author="" >
+            <span class="post-title" title="第3章第3篇：挖矿病毒">第3章第3篇：挖矿病毒</span>
+            <span class="post-date" title="2019-10-16 13:40:00">2019/10/16</span>
+        </a>
+        
+        <a  class="linux "
+           href="/2019/10/16/第2篇：捕捉短连接/"
+           data-tag="第三章"
+           data-author="" >
+            <span class="post-title" title="第3章第2篇：捕捉短连接">第3章第2篇：捕捉短连接</span>
+            <span class="post-date" title="2019-10-16 13:40:00">2019/10/16</span>
+        </a>
+        
+        <a  class="linux "
+           href="/2019/10/16/第4篇：盖茨木马/"
+           data-tag="第三章"
+           data-author="" >
+            <span class="post-title" title="第3章第4篇：盖茨木马">第3章第4篇：盖茨木马</span>
+            <span class="post-date" title="2019-10-16 13:40:00">2019/10/16</span>
+        </a>
+        
+        <a  class="web实战 "
+           href="/2019/10/16/第8篇：管理员账号被篡改/"
+           data-tag="第五章"
+           data-author="" >
+            <span class="post-title" title="第5章第8篇：管理员账号被篡改">第5章第8篇：管理员账号被篡改</span>
+            <span class="post-date" title="2019-10-16 13:39:00">2019/10/16</span>
+        </a>
+        
+        <a  class="windows "
+           href="/2019/10/16/第2篇：蠕虫病毒/"
+           data-tag="第四章"
+           data-author="" >
+            <span class="post-title" title="第4章第2篇：蠕虫病毒">第4章第2篇：蠕虫病毒</span>
+            <span class="post-date" title="2019-10-16 13:39:00">2019/10/16</span>
+        </a>
+        
+        <a  class="linux "
+           href="/2019/10/16/第5篇：DDOS病毒/"
+           data-tag="第三章"
+           data-author="" >
+            <span class="post-title" title="第3章第5篇：DDOS病毒">第3章第5篇：DDOS病毒</span>
+            <span class="post-date" title="2019-10-16 13:39:00">2019/10/16</span>
+        </a>
+        
+        <a  class="windows "
+           href="/2019/10/16/第1篇：FTP暴力破解/"
+           data-tag="第四章"
+           data-author="" >
+            <span class="post-title" title="第4章第1篇：FTP暴力破解">第4章第1篇：FTP暴力破解</span>
+            <span class="post-date" title="2019-10-16 13:39:00">2019/10/16</span>
+        </a>
+        
+        <a  class="windows "
+           href="/2019/10/16/第4篇：ARP病毒/"
+           data-tag="第四章"
+           data-author="" >
+            <span class="post-title" title="第4章第4篇：ARP病毒">第4章第4篇：ARP病毒</span>
+            <span class="post-date" title="2019-10-16 13:38:00">2019/10/16</span>
+        </a>
+        
+        <a  class="windows "
+           href="/2019/10/16/第6篇：挖矿病毒（二）/"
+           data-tag="第四章"
+           data-author="" >
+            <span class="post-title" title="第4章第6篇：挖矿病毒（二)">第4章第6篇：挖矿病毒（二)</span>
+            <span class="post-date" title="2019-10-16 13:38:00">2019/10/16</span>
+        </a>
+        
+        <a  class="windows "
+           href="/2019/10/16/第5篇：挖矿病毒（一）/"
+           data-tag="第四章"
+           data-author="" >
+            <span class="post-title" title="第4章第5篇：挖矿病毒（一）">第4章第5篇：挖矿病毒（一）</span>
+            <span class="post-date" title="2019-10-16 13:38:00">2019/10/16</span>
+        </a>
+        
+        <a  class="windows "
+           href="/2019/10/16/第3篇：勒索病毒/"
+           data-tag="第四章"
+           data-author="" >
+            <span class="post-title" title="第4章第3篇：勒索病毒">第4章第3篇：勒索病毒</span>
+            <span class="post-date" title="2019-10-16 13:38:00">2019/10/16</span>
+        </a>
+        
+        <a  class="应急响应 "
+           href="/2019/10/16/第1篇：Window入侵排查/"
+           data-tag="第一章"
+           data-author="" >
+            <span class="post-title" title="第1章第1篇：window入侵排查">第1章第1篇：window入侵排查</span>
+            <span class="post-date" title="2019-10-16 13:37:00">2019/10/16</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/10/16/ 应急响应实战笔记/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="应急响应">应急响应</span>
+            <span class="post-date" title="2019-10-16 12:30:54">2019/10/16</span>
+        </a>
+        
+        <a  class="内网 "
+           href="/2019/10/14/密码抓取/"
+           data-tag="密码抓取"
+           data-author="" >
+            <span class="post-title" title="密码抓取">密码抓取</span>
+            <span class="post-date" title="2019-10-14 20:46:00">2019/10/14</span>
+        </a>
+        
+        <a  class="web "
+           href="/2019/10/07/discuz-x3-4-getshell/"
+           data-tag="web"
+           data-author="" >
+            <span class="post-title" title="discuz x3.4 getshell">discuz x3.4 getshell</span>
+            <span class="post-date" title="2019-10-07 22:59:00">2019/10/07</span>
+        </a>
+        
+        <a  class="web "
+           href="/2019/10/07/google-hack-语法/"
+           data-tag="web"
+           data-author="" >
+            <span class="post-title" title="google hack 语法">google hack 语法</span>
+            <span class="post-date" title="2019-10-07 20:07:04">2019/10/07</span>
+        </a>
+        
+        <a  class="内网 "
+           href="/2019/10/07/windows中常见后门持久化方法总结/"
+           data-tag="后门"
+           data-author="" >
+            <span class="post-title" title="windows后门持久化">windows后门持久化</span>
+            <span class="post-date" title="2019-10-07 13:04:29">2019/10/07</span>
+        </a>
+        
+        <a  class="msf "
+           href="/2019/10/07/Meterpreter扩展速查表/"
+           data-tag="msf"
+           data-author="" >
+            <span class="post-title" title="Meterpreter扩展速查表">Meterpreter扩展速查表</span>
+            <span class="post-date" title="2019-10-07 08:22:28">2019/10/07</span>
+        </a>
+        
+        <a  class="msf "
+           href="/2019/10/07/Metasploit命令速查表/"
+           data-tag="msf"
+           data-author="" >
+            <span class="post-title" title="Metasploit命令速查表">Metasploit命令速查表</span>
+            <span class="post-date" title="2019-10-07 08:15:43">2019/10/07</span>
+        </a>
+        
+        <a  class="msf "
+           href="/2019/10/06/Meterpreter命令速查表/"
+           data-tag="msf"
+           data-author="" >
+            <span class="post-title" title="Meterpreter命令速查表">Meterpreter命令速查表</span>
+            <span class="post-date" title="2019-10-06 23:23:23">2019/10/06</span>
+        </a>
+        
+        <a  class="web "
+           href="/2019/10/06/sqlmap/"
+           data-tag="sqlmap"
+           data-author="" >
+            <span class="post-title" title="sqlmap">sqlmap</span>
+            <span class="post-date" title="2019-10-06 23:15:44">2019/10/06</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/10/06/信息收集/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="信息收集">信息收集</span>
+            <span class="post-date" title="2019-10-06 23:11:29">2019/10/06</span>
+        </a>
+        
+        <a  class="web "
+           href="/2019/10/06/phpmyadmin后台getshell/"
+           data-tag="phpmyadmin"
+           data-author="" >
+            <span class="post-title" title="phpmyadmin后台getshell">phpmyadmin后台getshell</span>
+            <span class="post-date" title="2019-10-06 22:53:19">2019/10/06</span>
+        </a>
+        
+        <a  class=""
+           href="/2019/10/06/py一句话开启http服务/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="py一句话开启http服务">py一句话开启http服务</span>
+            <span class="post-date" title="2019-10-06 18:52:55">2019/10/06</span>
+        </a>
+        
+    </nav>
+</div>
+    </div>
+    <div class="hide-list">
+        <div class="semicircle">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div class="post">
+    <div class="pjax">
+        <article id="post-第6篇：挖矿病毒（二）" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">第4章第6篇：挖矿病毒（二)</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        <span class="book">
+            
+                <a href="javascript:" data-rel="windows">windows</a>
+            
+        </span>
+        
+        
+        <span class="tag">
+            
+            <a href="javascript:" class="color4">第四章</a>
+            
+        </span>
+        
+    </div>
+    <div class="article-meta">
+        
+        创建时间:<time class="date" title='更新时间: 2019-10-17 10:42:59'>2019-10-16 13:38</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        <span>字数:625</span>
+        
+        
+        <span id="busuanzi_container_page_pv">
+            阅读:<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+        <span class="top-comment" title="跳转至评论区">
+            <a href="#comments">
+                评论:<span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </a>
+        </span>
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第6篇：挖矿病毒（二）"><span class="toc-text">第6篇：挖矿病毒（二）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#0x00-前言"><span class="toc-text">0x00 前言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x01-感染现象"><span class="toc-text">0x01 感染现象</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x02-事件分析"><span class="toc-text">0x02 事件分析</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#A、网络链接"><span class="toc-text">A、网络链接</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#B、进程分析"><span class="toc-text">B、进程分析</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#C、删除服务"><span class="toc-text">C、删除服务</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#D、病毒清除"><span class="toc-text">D、病毒清除</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x03-后记"><span class="toc-text">0x03 后记</span></a></li></ol></li></ol>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<h2 id="第6篇：挖矿病毒（二）"><a href="#第6篇：挖矿病毒（二）" class="headerlink" title="第6篇：挖矿病毒（二）"></a>第6篇：挖矿病毒（二）</h2><h3 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00 前言"></a>0x00 前言</h3><p>　　作为一个运维工程师，而非一个专业的病毒分析工程师，遇到了比较复杂的病毒怎么办？别怕，虽然对二进制不熟，但是依靠系统运维的经验，我们可以用自己的方式来解决它。</p>
+<h3 id="0x01-感染现象"><a href="#0x01-感染现象" class="headerlink" title="0x01 感染现象"></a>0x01 感染现象</h3><p>1、向大量远程IP的445端口发送请求</p>
+<p><img src="/images/win-10-1.png" alt></p>
+<p>2、使用各种杀毒软件查杀无果，虽然能识别出在C:\Windows\NerworkDistribution中发现异常文件，但即使删除NerworkDistribution后，每次重启又会再次生成。 </p>
+<p><img src="/images/win-10-2.jpg" alt></p>
+<p>连杀软清除不了的病毒，只能手工来吧，个人比较偏好火绒，界面比较简洁，功能也挺好用的，自带的火绒剑是安全分析利器。于是安装了火绒，有了如下分析排查过程。</p>
+<h3 id="0x02-事件分析"><a href="#0x02-事件分析" class="headerlink" title="0x02 事件分析"></a>0x02 事件分析</h3><h4 id="A、网络链接"><a href="#A、网络链接" class="headerlink" title="A、网络链接"></a>A、网络链接</h4><p>通过现象，找到对外发送请求的进程ID：4960</p>
+<p><img src="/images/win-10-3.png" alt></p>
+<h4 id="B、进程分析"><a href="#B、进程分析" class="headerlink" title="B、进程分析"></a>B、进程分析</h4><p>进一步通过进程ID找到相关联的进程，父进程为1464</p>
+<p><img src="/images/win-10-4.png" alt></p>
+<p>找到进程ID为1464的服务项，逐一排查，我们发现服务项RemoteUPnPService存在异常。 </p>
+<p><img src="/images/win-10-5.png" alt></p>
+<h4 id="C、删除服务"><a href="#C、删除服务" class="headerlink" title="C、删除服务"></a>C、删除服务</h4><p>选择可疑服务项，右键属性，停止服务，启动类型：禁止。</p>
+<p><img src="/images/win-10-6.png" alt></p>
+<p>停止并禁用服务，再清除NerworkDistribution目录后，重启计算机。异常请求和目录的现象消失。</p>
+<p>又排查了几台，现象一致，就是服务项的名称有点变化。</p>
+<p><img src="/images/win-10-7.png" alt></p>
+<h4 id="D、病毒清除"><a href="#D、病毒清除" class="headerlink" title="D、病毒清除"></a>D、病毒清除</h4><p>挖矿病毒清除过程如下：</p>
+<p>1、 停止并禁用可疑的服务项，服务项的名称会变，但描述是不变的，根据描述可快速找到可疑服务项。</p>
+<p>​    可疑服务项描述：Enables a common interface and object model for the Remote UPnP Service to access</p>
+<p>​    删除服务项：Sc delete RemoteUPnPService</p>
+<p>2、  删除C:\Windows\NerworkDistribution目录</p>
+<p>3、  重启计算机</p>
+<p>4、  使用杀毒软件全盘查杀</p>
+<p>5、  到微软官方网站下载对应操作系统补丁，下载链接：</p>
+<p>　　<a href="https://docs.microsoft.com/zh-cn/security-updates/securitybulletins/2017/ms17-010" target="_blank" rel="noopener">https://docs.microsoft.com/zh-cn/security-updates/securitybulletins/2017/ms17-010</a></p>
+<h3 id="0x03-后记"><a href="#0x03-后记" class="headerlink" title="0x03 后记"></a>0x03 后记</h3><p>在查询了大量资料后，找到了一篇在2018年2月有关该病毒的报告：</p>
+<p>NrsMiner：一个构造精密的挖矿僵尸网络</p>
+<p><a href="https://www.freebuf.com/articles/system/162874.html" target="_blank" rel="noopener">https://www.freebuf.com/articles/system/162874.html</a></p>
+<p>根据文章提示，这个病毒的构造非常的复杂，主控模块作为服务“Hyper-VAccess Protection Agent Service”的ServiceDll存在。但与目前处理的情况有所不同，该病毒疑似是升级了。</p>
+
+      
+       <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 cxaqhq@qq.com </span>
+    </div>
+</article>
+
+
+<p>
+    <a href="javascript:void(0)" class="dashang" onclick="dashangToggle()">赏</a>
+</p>
+
+
+<div class="article_copyright">
+    <p><span class="copy-title">文章标题:</span>第4章第6篇：挖矿病毒（二)</p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">625</span></p>
+    <p><span class="copy-title">本文作者:</span><a href="javascript:void(0)" title="cx">cx</a></p>
+    <p><span class="copy-title">发布时间:</span>2019-10-16, 13:38:00</p>
+    <p><span class="copy-title">最后更新:</span>2019-10-17, 10:42:59</p>
+  
+</div>
+
+
+
+    <div id="comments"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+
+<script type="text/javascript">
+    $.getScript('/js/gitalk.js', function () {
+        var gitalk = new Gitalk({
+            clientID: 'e73781144304d69620be',
+            clientSecret: 'fc7949d93e6de6f18c4acabe3f7ac4a48047bdd3',
+            repo: 'cx',
+            owner: 'cxaqhq',
+            admin: ['cxaqhq'],
+            id: decodeURI(location.pathname),
+            distractionFreeMode: 'true',
+            language: 'zh-CN',
+            perPage: parseInt('10',10)
+        })
+        gitalk.render('comments')
+    })
+</script>
+
+
+
+
+    
+
+
+
+
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">©2019</p>
+<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+
+    </div>
+    <div class="full-toc">
+        <button class="full"><span class="min "></span></button>
+<button class="post-toc-menu"><span class="post-toc-menu-icons"></span></button>
+<div class="post-toc"><span class="post-toc-title">目录</span>
+    <div class="post-toc-content">
+
+    </div>
+</div>
+<a class="" id="rocket" href="javascript:void(0)"></a>
+    </div>
+</div>
+<div class="acParent"></div>
+
+<div class="hide_box" onclick="dashangToggle()"></div>
+<div class="shang_box">
+    <a class="shang_close" href="javascript:void(0)" onclick="dashangToggle()">×</a>
+    <div class="shang_tit">
+        <p>喜欢就点赞,疼爱就打赏</p>
+    </div>
+    <div class="shang_payimg">
+        <div class="pay_img">
+            <img src="/img/zfb.jpg" class="alipay" title="扫码支持">
+            <img src="/img/wx.jpg" class="weixin" title="扫码支持">
+        </div>
+    </div>
+    <div class="shang_payselect">
+        <span><label><input type="radio" name="pay" checked value="alipay">支付宝</label></span><span><label><input type="radio" name="pay" value="weixin">微信</label></span>
+    </div>
+</div>
+
+
+</body>
+<script src="/js/jquery.pjax.js?v=1.0.1" ></script>
+
+<script src="/js/script.js?v=1.0.1" ></script>
+<script>
+    var img_resize = 'default';
+    /*作者、标签的自动补全*/
+    $(function () {
+        $('.search').AutoComplete({
+            'data': ['#msf','#web','#phpmyadmin','#sqlmap','#密码抓取','#第四章','#第三章','#第五章','#第二章','#第一章','#后门','#法律',],
+            'itemHeight': 20,
+            'width': 418
+        }).AutoComplete('show');
+    })
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $(".post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+        $("input[name=pay]").on("click", function () {
+            if($("input[name=pay]:checked").val()=="weixin"){
+                $(".shang_box .shang_payimg .pay_img").addClass("weixin_img");
+            } else {
+                $(".shang_box .shang_payimg .pay_img").removeClass("weixin_img");
+            }
+        })
+        
+
+        /*高亮代码块行号*/
+        
+        $('pre code').each(function(){
+            var lines = $(this).text().split('\n').length - 1, widther='';
+            if (lines>99) {
+                widther = 'widther'
+            }
+            var $numbering = $('<ul/>').addClass('pre-numbering ' + widther).attr("unselectable","on");
+            $(this).addClass('has-numbering ' + widther)
+                    .parent()
+                    .append($numbering);
+            for(var i=1;i<=lines;i++){
+                $numbering.append($('<li/>').text(i));
+            }
+        });
+        
+
+        /*访问数量*/
+        
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js");
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+
+        
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+    function dashangToggle() {
+        $(".shang_box").fadeToggle();
+        $(".hide_box").fadeToggle();
+    }
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<style>
+    pre{
+        position: relative;
+        margin-bottom: 24px;
+        border-radius: 10px;
+        border: 1px solid #e2dede;
+        background: #FFF;
+        overflow: hidden;
+    }
+    code.has-numbering{
+        margin-left: 30px;
+    }
+    code.has-numbering.widther{
+        margin-left: 35px;
+    }
+    .pre-numbering{
+        margin: 0px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 20px;
+        padding: 0.5em 3px 0.7em 5px;
+        border-right: 1px solid #C3CCD0;
+        text-align: right;
+        color: #AAA;
+        background-color: #fafafa;
+    }
+    .pre-numbering.widther {
+        width: 35px;
+    }
+</style>
+
+<!--自定义样式设置-->
+<style>
+    
+    
+    .nav {
+        width: 542px;
+    }
+    .nav.fullscreen {
+        margin-left: -542px;
+    }
+    .nav-left {
+        width: 120px;
+    }
+    
+    
+    @media screen and (max-width: 1468px) {
+        .nav {
+            width: 492px;
+        }
+        .nav.fullscreen {
+            margin-left: -492px;
+        }
+        .nav-left {
+            width: 100px;
+        }
+    }
+    
+    
+    @media screen and (max-width: 1024px) {
+        .nav {
+            width: 492px;
+            margin-left: -492px
+        }
+        .nav.fullscreen {
+            margin-left: 0;
+        }
+        .nav .hide-list.fullscreen {
+            left: 492px
+        }
+    }
+    
+    @media screen and (max-width: 426px) {
+        .nav {
+            width: 100%;
+        }
+        .nav-left {
+            width: 100%;
+        }
+    }
+    
+    
+    .nav-right .title-list nav a .post-title, .nav-right .title-list #local-search-result a .post-title {
+        color: #383636;
+    }
+    
+    
+    .nav-right .title-list nav a .post-date, .nav-right .title-list #local-search-result a .post-date {
+        color: #5e5e5f;
+    }
+    
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+
+    /*列表样式*/
+    
+    .post .pjax article .article-entry>ol, .post .pjax article .article-entry>ul, .post .pjax article>ol, .post .pjax article>ul{
+        border: #e2dede solid 1px;
+        border-radius: 10px;
+        padding: 10px 32px 10px 56px;
+    }
+    .post .pjax article .article-entry li>ol, .post .pjax article .article-entry li>ul,.post .pjax article li>ol, .post .pjax article li>ul{
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    .post .pjax article .article-entry>ol>li, .post .pjax article .article-entry>ul>li,.post .pjax article>ol>li, .post .pjax article>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    .post .pjax article .article-entry li>ol>li, .post .pjax article .article-entry li>ul>li,.post .pjax article li>ol>li, .post .pjax article li>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    
+
+    /* 背景图样式 */
+    
+    
+
+
+    /*引用块样式*/
+    
+
+    /*文章列表背景图*/
+    
+    .nav-right:before {
+        content: ' ';
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.3;
+        background: url("https://i.loli.net/2019/07/22/5d3521411f3f169375.png");
+        background-repeat: no-repeat;
+        background-position: 50% 0;
+        -ms-background-size: cover;
+        -o-background-size: cover;
+        -moz-background-size: cover;
+        -webkit-background-size: cover;
+        background-size: cover;
+    }
+    
+
+    
+</style>
+
+
+
+
+
+
+
+</html>
