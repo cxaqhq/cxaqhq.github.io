@@ -2,9 +2,9 @@
 <html>
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
-  <title>第2章第2篇:Linux日志分析 | cx网络安全小站</title>
-  <meta name="keywords" content=" 第二章 ">
-  <meta name="description" content="第2章第2篇:Linux日志分析 | cx网络安全小站">
+  <title>sqlmap 脚本详解 | cx网络安全小站</title>
+  <meta name="keywords" content>
+  <meta name="description" content="sqlmap 脚本详解 | cx网络安全小站">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="安装步骤： wget https://download.teamviewer.com/download/linux/teamviewer-host_armhf.deb sudo dpkg -i teamviewer-host_armhf.debsudo apt-get -f install   命令行终端环境使用SSH远程登录树莓派#查看帮助信息teamviewer help#查看本机IDteam">
 <meta property="og:type" content="article">
@@ -739,36 +739,24 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="post-第2篇：Linux日志分析" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-sqlmap-脚本详解" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">第2章第2篇:Linux日志分析</h1>
+        <h1 class="article-title">sqlmap 脚本详解</h1>
     
     <div class="article-meta">
         
         
         
-        <span class="book">
-            
-                <a href="javascript:" data-rel="日志分析">日志分析</a>
-            
-        </span>
-        
-        
-        <span class="tag">
-            
-            <a href="javascript:" class="color4">第二章</a>
-            
-        </span>
         
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2019-10-17 10:40:15'>2019-10-16 13:42</time>
+        创建时间:<time class="date" title='更新时间: 2019-11-08 19:10:35'>2019-11-08 19:09</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:1.4k</span>
+        <span>字数:660</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -798,7 +786,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第2篇-Linux日志分析"><span class="toc-text">第2篇:Linux日志分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#0x00-前言"><span class="toc-text">0x00 前言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x01-日志简介"><span class="toc-text">0x01 日志简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x02-日志分析技巧"><span class="toc-text">0x02 日志分析技巧</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#A、常用的shell命令"><span class="toc-text">A、常用的shell命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#B、日志分析技巧"><span class="toc-text">B、日志分析技巧</span></a></li></ol></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#tamper脚本"><span class="toc-text">tamper脚本</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -814,83 +802,74 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <hr>
-<h2 id="第2篇-Linux日志分析"><a href="#第2篇-Linux日志分析" class="headerlink" title="第2篇:Linux日志分析"></a>第2篇:Linux日志分析</h2><h3 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00 前言"></a>0x00 前言</h3><p>Linux系统拥有非常灵活和强大的日志功能，可以保存几乎所有的操作记录，并可以从中检索出我们需要的信息。 本文简介一下Linux系统日志及日志分析技巧。</p>
-<h3 id="0x01-日志简介"><a href="#0x01-日志简介" class="headerlink" title="0x01 日志简介"></a>0x01 日志简介</h3><p>日志默认存放位置：/var/log/</p>
-<p>查看日志配置情况：more /etc/rsyslog.conf</p>
-<table>
-<thead>
-<tr>
-<th align="center">日志文件</th>
-<th align="center">说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">/var/log/cron</td>
-<td align="center">记录了系统定时任务相关的日志</td>
-</tr>
-<tr>
-<td align="center">/var/log/cups</td>
-<td align="center">记录打印信息的日志</td>
-</tr>
-<tr>
-<td align="center">/var/log/dmesg</td>
-<td align="center">记录了系统在开机时内核自检的信息，也可以使用dmesg命令直接查看内核自检信息</td>
-</tr>
-<tr>
-<td align="center">/var/log/mailog</td>
-<td align="center">记录邮件信息</td>
-</tr>
-<tr>
-<td align="center">/var/log/message</td>
-<td align="center">记录系统重要信息的日志。这个日志文件中会记录Linux系统的绝大多数重要信息，如果系统出现问题时，首先要检查的就应该是这个日志文件</td>
-</tr>
-<tr>
-<td align="center">/var/log/btmp</td>
-<td align="center">记录错误登录日志，这个文件是二进制文件，不能直接vi查看，而要使用lastb命令查看</td>
-</tr>
-<tr>
-<td align="center">/var/log/lastlog</td>
-<td align="center">记录系统中所有用户最后一次登录时间的日志，这个文件是二进制文件，不能直接vi，而要使用lastlog命令查看</td>
-</tr>
-<tr>
-<td align="center">/var/log/wtmp</td>
-<td align="center">永久记录所有用户的登录、注销信息，同时记录系统的启动、重启、关机事件。同样这个文件也是一个二进制文件，不能直接vi，而需要使用last命令来查看</td>
-</tr>
-<tr>
-<td align="center">/var/log/utmp</td>
-<td align="center">记录当前已经登录的用户信息，这个文件会随着用户的登录和注销不断变化，只记录当前登录用户的信息。同样这个文件不能直接vi，而要使用w,who,users等命令来查询</td>
-</tr>
-<tr>
-<td align="center">/var/log/secure</td>
-<td align="center">记录验证和授权方面的信息，只要涉及账号和密码的程序都会记录，比如SSH登录，su切换用户，sudo授权，甚至添加用户和修改用户密码都会记录在这个日志文件中</td>
-</tr>
-</tbody></table>
-<p>比较重要的几个日志：<br>    登录失败记录：/var/log/btmp     //lastb<br>    最后一次登录：/var/log/lastlog  //lastlog<br>    登录成功记录: /var/log/wtmp     //last<br>    登录日志记录：/var/log/secure   </p>
-<p>​    目前登录用户信息：/var/run/utmp  //w、who、users</p>
-<p>​    历史命令记录：history<br>​    仅清理当前用户： history -c</p>
-<h3 id="0x02-日志分析技巧"><a href="#0x02-日志分析技巧" class="headerlink" title="0x02 日志分析技巧"></a>0x02 日志分析技巧</h3><h4 id="A、常用的shell命令"><a href="#A、常用的shell命令" class="headerlink" title="A、常用的shell命令"></a>A、常用的shell命令</h4><p>Linux下常用的shell命令如：find、grep 、egrep、awk、sed</p>
-<p>小技巧：</p>
-<p>1、grep显示前后几行信息:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">​	标准unix/linux下的grep通过下面參数控制上下文：</span><br><span class="line">​	grep -C 5 foo file 显示file文件里匹配foo字串那行以及上下5行</span><br><span class="line">​	grep -B 5 foo file 显示foo及前5行</span><br><span class="line">​	grep -A 5 foo file 显示foo及后5行</span><br><span class="line">​	查看grep版本号的方法是</span><br><span class="line">​	grep -V</span><br></pre></td></tr></table></figure>
-
-<p>2、grep 查找含有某字符串的所有文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">grep -rn &quot;hello,world!&quot; </span><br><span class="line">* : 表示当前目录所有文件，也可以是某个文件名</span><br><span class="line">-r 是递归查找</span><br><span class="line">-n 是显示行号</span><br><span class="line">-R 查找所有文件包含子目录</span><br><span class="line">-i 忽略大小写</span><br></pre></td></tr></table></figure>
-
-<p>3、如何显示一个文件的某几行：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cat input_file | tail -n +1000 | head -n 2000</span><br><span class="line">#从第1000行开始，显示2000行。即显示1000~2999行</span><br></pre></td></tr></table></figure>
-
-<p>4、find /etc -name init </p>
-<pre><code>//在目录/etc中查找文件init</code></pre><p>5、只是显示/etc/passwd的账户</p>
-<pre><code>`cat /etc/passwd |awk  -F &apos;:&apos;  &apos;{print $1}&apos;`  
-//awk -F指定域分隔符为&apos;:&apos;，将记录按指定的域分隔符划分域，填充域，​$0则表示所有域,$1表示第一个域,​$n表示第n个域。</code></pre><p>6、sed -i ‘153,$d’ .bash_history</p>
-<pre><code>删除历史操作记录，只保留前153行</code></pre><h4 id="B、日志分析技巧"><a href="#B、日志分析技巧" class="headerlink" title="B、日志分析技巧"></a>B、日志分析技巧</h4><p><strong>A、/var/log/secure</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">1、定位有多少IP在爆破主机的root帐号：    </span><br><span class="line">grep &quot;Failed password for root&quot; /var/log/secure | awk &apos;&#123;print $11&#125;&apos; | sort | uniq -c | sort -nr | more</span><br><span class="line"></span><br><span class="line">定位有哪些IP在爆破：</span><br><span class="line">grep &quot;Failed password&quot; /var/log/secure|grep -E -o &quot;(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)&quot;|uniq -c</span><br><span class="line"></span><br><span class="line">爆破用户名字典是什么？</span><br><span class="line"> grep &quot;Failed password&quot; /var/log/secure|perl -e &apos;while($_=&lt;&gt;)&#123; /for(.*?) from/; print &quot;$1\n&quot;;&#125;&apos;|uniq -c|sort -nr</span><br><span class="line"> </span><br><span class="line">2、登录成功的IP有哪些： 	</span><br><span class="line">grep &quot;Accepted &quot; /var/log/secure | awk &apos;&#123;print $11&#125;&apos; | sort | uniq -c | sort -nr | more</span><br><span class="line"></span><br><span class="line">登录成功的日期、用户名、IP：</span><br><span class="line">grep &quot;Accepted &quot; /var/log/secure | awk &apos;&#123;print $1,$2,$3,$9,$11&#125;&apos; </span><br><span class="line"></span><br><span class="line">3、增加一个用户kali日志：</span><br><span class="line">Jul 10 00:12:15 localhost useradd[2382]: new group: name=kali, GID=1001</span><br><span class="line">Jul 10 00:12:15 localhost useradd[2382]: new user: name=kali, UID=1001, GID=1001, home=/home/kali</span><br><span class="line">, shell=/bin/bash</span><br><span class="line">Jul 10 00:12:58 localhost passwd: pam_unix(passwd:chauthtok): password changed for kali</span><br><span class="line">#grep &quot;useradd&quot; /var/log/secure </span><br><span class="line"></span><br><span class="line">4、删除用户kali日志：</span><br><span class="line">Jul 10 00:14:17 localhost userdel[2393]: delete user &apos;kali&apos;</span><br><span class="line">Jul 10 00:14:17 localhost userdel[2393]: removed group &apos;kali&apos; owned by &apos;kali&apos;</span><br><span class="line">Jul 10 00:14:17 localhost userdel[2393]: removed shadow group &apos;kali&apos; owned by &apos;kali&apos;</span><br><span class="line"># grep &quot;userdel&quot; /var/log/secure</span><br><span class="line"></span><br><span class="line">5、su切换用户：</span><br><span class="line">Jul 10 00:38:13 localhost su: pam_unix(su-l:session): session opened for user good by root(uid=0)</span><br><span class="line"></span><br><span class="line">sudo授权执行:</span><br><span class="line">sudo -l</span><br><span class="line">Jul 10 00:43:09 localhost sudo:    good : TTY=pts/4 ; PWD=/home/good ; USER=root ; COMMAND=/sbin/shutdown -r now</span><br></pre></td></tr></table></figure>
-
-<p><strong>2、/var/log/yum.log</strong></p>
-<p>软件安装升级卸载日志：</p>
-<figure class="highlight plain"><figcaption><span>install gcc</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">yum install gcc</span><br><span class="line"></span><br><span class="line">[root@bogon ~]# more /var/log/yum.log</span><br><span class="line"></span><br><span class="line">Jul 10 00:18:23 Updated: cpp-4.8.5-28.el7_5.1.x86_64</span><br><span class="line">Jul 10 00:18:24 Updated: libgcc-4.8.5-28.el7_5.1.x86_64</span><br><span class="line">Jul 10 00:18:24 Updated: libgomp-4.8.5-28.el7_5.1.x86_64</span><br><span class="line">Jul 10 00:18:28 Updated: gcc-4.8.5-28.el7_5.1.x86_64</span><br><span class="line">Jul 10 00:18:28 Updated: libgcc-4.8.5-28.el7_5.1.i686</span><br></pre></td></tr></table></figure>
-
+        <h3 id="tamper脚本"><a href="#tamper脚本" class="headerlink" title="tamper脚本"></a>tamper脚本</h3><p>apostrophemask.py</p>
+<p>作用：将引号替换为UTF-8，用于过滤单引号</p>
+<p>base64encode.py</p>
+<p>作用：替换为base64编码</p>
+<p>multiplespaces.py</p>
+<p>作用：围绕SQL关键词添加多个空格</p>
+<p>space2plus.py</p>
+<p>作用：使用+号替换空格</p>
+<p>nonrecursivereplacement.py</p>
+<p>作用：作为双重查询语句，用双重语句替代预定义的SQL关键字（适用于非常强的自定义过滤器，例如将SELECT替换为空）</p>
+<p>space2randomblank.py</p>
+<p>作用：将空格替换为其他有效字符</p>
+<p>unionalltounion.py</p>
+<p>作用：将UNION ALL SELECT替换为UNION SELECT</p>
+<p>securesphere.py</p>
+<p>作用：追加特制的字符串</p>
+<p>space2hash.py</p>
+<p>作用：将空格替换为#号，并随机添加一个字符串和换行符</p>
+<p>space2mssqlblank.py(MsSQL)</p>
+<p>作用：将空格替换为其他空符号</p>
+<p>space2mssqlhash.py</p>
+<p>作用：将空格替换为#号，并添加一个换行符</p>
+<p>between.py</p>
+<p>作用：用NOT BETWEEN 0 AND替换大于号（&gt;），用BETWEEN AND替换等号（=）</p>
+<p>percentage.py</p>
+<p>作用：ASP允许在每个字符前添加一个%号</p>
+<p>sp_password.py</p>
+<p>作用：从DBMS日记的自动模糊处理的有效载荷中添加sp_password</p>
+<p>charencode.py</p>
+<p>作用：对给定的Payload全部字符使用URL编码(不处理已经编码的字符)</p>
+<p>randomcase.py</p>
+<p>作用：随机大小写</p>
+<p>charunicodeencode.py</p>
+<p>作用：字符串unicode编码</p>
+<p>space2comment.py</p>
+<p>作用：将空格替换为/**/</p>
+<p>equaltolike.py</p>
+<p>作用：将等号替换为like</p>
+<p>greatest.py</p>
+<p>作用：绕过对“&gt;”的过滤，用GREATEST替换大于号</p>
+<p>ifnull2ifisnull.py</p>
+<p>作用：绕过IFNULL的过滤，替换类似IFNULL(A,B)为IF(ISNULL(A),B,A)</p>
+<p>modsecurityversioned.py</p>
+<p>作用：过滤空格，使用MySQL内联注释的方式进行注入</p>
+<p>space2mysqlblank.py</p>
+<p>作用：将空格替换为其他空白符号(适用于MySQL)</p>
+<p>modsecurityzeroversioned.py</p>
+<p>作用：使用MySQL内联注释的方式（/<em>!00000</em>/）进行注入</p>
+<p>space2mysqldash.py</p>
+<p>作用：将空格替换为–，并添加一个换行符</p>
+<p>bluecoat.py</p>
+<p>作用：在SQL语句后用有效的随机空白符替换空格，随后用LIKE替换等号</p>
+<p>versionedkeywords.py</p>
+<p>作用：注释绕过</p>
+<p>halfversionedmorekeywords.py</p>
+<p>作用：当数据库为MySQL时绕过防火墙，在每个关键字之前添加MySQL版本注释</p>
+<p>space2morehash.py</p>
+<p>作用：将空格替换为#号，并添加一个随机字符串和换行符</p>
+<p>apostrophenullencode.py</p>
+<p>作用：用非法双字节unicode字符串替换单引号</p>
+<p>appendnullbyte.py</p>
+<p>作用：在有效负荷的结束位置添加零字节字符编码</p>
+<p>chardoubleencode.py</p>
+<p>作用：对给定的Payload全部字符使用双重URL编码(不处理已编码的字符)</p>
+<p>unmagicquotes.py</p>
+<p>作用：使用一个多字节组合（%bf%27）和末尾通用注释一起替换掉空格</p>
+<p>randomcomments.py</p>
+<p>作用：用/**/分割SQL关键字</p>
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 cxaqhq@qq.com </span>
@@ -904,11 +883,11 @@
 
 
 <div class="article_copyright">
-    <p><span class="copy-title">文章标题:</span>第2章第2篇:Linux日志分析</p>
-    <p><span class="copy-title">文章字数:</span><span class="post-count">1.4k</span></p>
+    <p><span class="copy-title">文章标题:</span>sqlmap 脚本详解</p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">660</span></p>
     <p><span class="copy-title">本文作者:</span><a href="javascript:void(0)" title="cx">cx</a></p>
-    <p><span class="copy-title">发布时间:</span>2019-10-16, 13:42:00</p>
-    <p><span class="copy-title">最后更新:</span>2019-10-17, 10:40:15</p>
+    <p><span class="copy-title">发布时间:</span>2019-11-08, 19:09:43</p>
+    <p><span class="copy-title">最后更新:</span>2019-11-08, 19:10:35</p>
   
 </div>
 
