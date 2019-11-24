@@ -2,9 +2,9 @@
 <html>
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
-  <title>第1章第1篇：window入侵排查 | cx网络安全小站</title>
-  <meta name="keywords" content=" 第一章 ">
-  <meta name="description" content="第1章第1篇：window入侵排查 | cx网络安全小站">
+  <title>茶马古道 | cx网络安全小站</title>
+  <meta name="keywords" content>
+  <meta name="description" content="茶马古道 | cx网络安全小站">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="好东西要分享，茶马古道地址http://l2767b4t37ap2wzv6lforfxrxn7dbvw4cgtkalywwoin5ghdvw7obyyd.onion/i/394228 有想法的大家可以去了解一下，毕竟挺好的！">
 <meta property="og:type" content="article">
@@ -747,36 +747,24 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="post-第1篇：Window入侵排查" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-茶马古道" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">第1章第1篇：window入侵排查</h1>
+        <h1 class="article-title">茶马古道</h1>
     
     <div class="article-meta">
         
         
         
-        <span class="book">
-            
-                <a href="javascript:" data-rel="应急响应">应急响应</a>
-            
-        </span>
-        
-        
-        <span class="tag">
-            
-            <a href="javascript:" class="color4">第一章</a>
-            
-        </span>
         
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2019-10-17 10:39:27'>2019-10-16 13:37</time>
+        创建时间:<time class="date" title='更新时间: 2019-11-25 00:25:44'>2019-11-25 00:24</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:2.1k</span>
+        <span>字数:35</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -806,7 +794,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第1篇：window入侵排查"><span class="toc-text">第1篇：window入侵排查</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#0x00-前言"><span class="toc-text">0x00 前言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x01-入侵排查思路"><span class="toc-text">0x01 入侵排查思路</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1-检查系统账号安全"><span class="toc-text">1.1 检查系统账号安全</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-检查异常端口、进程"><span class="toc-text">1.2 检查异常端口、进程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-检查启动项、计划任务、服务"><span class="toc-text">1.3 检查启动项、计划任务、服务</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-4-检查系统相关信息"><span class="toc-text">1.4 检查系统相关信息</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-5-自动化查杀"><span class="toc-text">1.5 自动化查杀</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-6-日志分析"><span class="toc-text">1.6 日志分析</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#0x02-工具篇"><span class="toc-text">0x02 工具篇</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-病毒分析"><span class="toc-text">2.1 病毒分析</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-病毒查杀"><span class="toc-text">2.2 病毒查杀</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-病毒动态"><span class="toc-text">2.3 病毒动态</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-4-在线病毒扫描网站"><span class="toc-text">2.4 在线病毒扫描网站</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-5-webshell查杀"><span class="toc-text">2.5 webshell查杀</span></a></li></ol></li></ol></li></ol>
+        
     
 <style>
     .left-col .switch-btn,
@@ -822,157 +810,8 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <hr>
-<h2 id="第1篇：window入侵排查"><a href="#第1篇：window入侵排查" class="headerlink" title="第1篇：window入侵排查"></a>第1篇：window入侵排查</h2><h3 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00 前言"></a>0x00 前言</h3><p>当企业发生黑客入侵、系统崩溃或其它影响业务正常运行的安全事件时，急需第一时间进行处理，使企业的网络信息系统在最短时间内恢复正常工作，进一步查找入侵来源，还原入侵事故过程，同时给出解决方案与防范措施，为企业挽回或减少经济损失。  </p>
-<p>常见的应急响应事件分类：</p>
-<p>web入侵：网页挂马、主页篡改、Webshell</p>
-<p>系统入侵：病毒木马、勒索软件、远控后门</p>
-<p>网络攻击：DDOS攻击、DNS劫持、ARP欺骗</p>
-<p>针对常见的攻击事件，结合工作中应急响应事件分析和解决的方法，总结了一些Window服务器入侵排查的思路。</p>
-<h3 id="0x01-入侵排查思路"><a href="#0x01-入侵排查思路" class="headerlink" title="0x01 入侵排查思路"></a>0x01 入侵排查思路</h3><h4 id="1-1-检查系统账号安全"><a href="#1-1-检查系统账号安全" class="headerlink" title="1.1 检查系统账号安全"></a>1.1 检查系统账号安全</h4><p>1、查看服务器是否有弱口令，远程管理端口是否对公网开放。</p>
-<ul>
-<li>检查方法：据实际情况咨询相关服务器管理员。</li>
-</ul>
-<p>2、查看服务器是否存在可疑账号、新增账号。</p>
-<ul>
-<li>检查方法：打开 cmd 窗口，输入<code>lusrmgr.msc</code>命令，查看是否有新增/可疑的账号，如有管理员群组的（Administrators）里的新增账户，如有，请立即禁用或删除掉。 </li>
-</ul>
-<p>3、查看服务器是否存在隐藏账号、克隆账号。</p>
-<ul>
-<li><p>检查方法：</p>
-<p>a、打开注册表 ，查看管理员对应键值。</p>
-<p>b、使用D盾_web查杀工具，集成了对克隆账号检测的功能。</p>
-</li>
-</ul>
-<p><img src="/images/sum-1-1.png" alt></p>
-<p>4、结合日志，查看管理员登录时间、用户名是否存在异常。</p>
-<ul>
-<li><p>检查方法：</p>
-<p>a、Win+R打开运行，输入“eventvwr.msc”，回车运行，打开“事件查看器”。</p>
-<p>b、导出Windows日志–安全，利用Log Parser进行分析。</p>
-</li>
-</ul>
-<p><img src="/images/sum-1-2.png" alt></p>
-<h4 id="1-2-检查异常端口、进程"><a href="#1-2-检查异常端口、进程" class="headerlink" title="1.2 检查异常端口、进程"></a>1.2 检查异常端口、进程</h4><p>1、检查端口连接情况，是否有远程连接、可疑连接。</p>
-<ul>
-<li><p>检查方法：</p>
-<p>a、netstat -ano 查看目前的网络连接，定位可疑的ESTABLISHED </p>
-<p>b、根据netstat 定位出的pid，再通过tasklist命令进行进程定位 tasklist  | findstr “PID”</p>
-</li>
-</ul>
-<p><img src="/images/sum-1-3.png" alt></p>
-<p>2、进程</p>
-<ul>
-<li><p>检查方法：</p>
-<p>a、开始–运行–输入msinfo32，依次点击“软件环境→正在运行任务”就可以查看到进程的详细信息，比如进程路径、进程ID、文件创建日期、启动时间等。</p>
-<p>b、打开D盾_web查杀工具，进程查看，关注没有签名信息的进程。</p>
-<p>c、通过微软官方提供的 Process Explorer 等工具进行排查 。</p>
-<p>d、查看可疑的进程及其子进程。可以通过观察以下内容：</p>
-<pre><code>没有签名验证信息的进程
-没有描述信息的进程
-进程的属主
-进程的路径是否合法
-CPU或内存资源占用长时间过高的进程</code></pre></li>
-</ul>
-<p>3、小技巧：</p>
-<p>​    a、查看端口对应的PID： netstat -ano | findstr “port”</p>
-<p>​    b、查看进程对应的PID：任务管理器–查看–选择列–PID 或者  tasklist  | findstr “PID”</p>
-<p>​    c、查看进程对应的程序位置：</p>
-<p>​        任务管理器–选择对应进程–右键打开文件位置</p>
-<p>​        运行输入 wmic，cmd界面 输入  process</p>
-<p>​    d、tasklist /svc   进程–PID–服务</p>
-<p>​    e、查看Windows服务所对应的端口：<br>​        %system%/system32/drivers/etc/services（一般%system%就是C:\Windows）</p>
-<h4 id="1-3-检查启动项、计划任务、服务"><a href="#1-3-检查启动项、计划任务、服务" class="headerlink" title="1.3 检查启动项、计划任务、服务"></a>1.3 检查启动项、计划任务、服务</h4><p>1、检查服务器是否有异常的启动项。</p>
-<ul>
-<li><p>检查方法：</p>
-<p>a、登录服务器，单击【开始】&gt;【所有程序】&gt;【启动】，默认情况下此目录在是一个空目录，确认是否有非业务程序在该目录下。<br>b、单击开始菜单 &gt;【运行】，输入 msconfig，查看是否存在命名异常的启动项目，是则取消勾选命名异常的启动项目，并到命令中显示的路径删除文件。<br>c、单击【开始】&gt;【运行】，输入 regedit，打开注册表，查看开机启动项是否正常，特别注意如下三个注册表项：<br>HKEY_CURRENT_USER\software\micorsoft\windows\currentversion\run<br>HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Run<br>HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Runonce<br>检查右侧是否有启动异常的项目，如有请删除，并建议安装杀毒软件进行病毒查杀，清除残留病毒或木马。</p>
-<p>d、利用安全软件查看启动项、开机时间管理等。</p>
-<p>e、组策略，运行gpedit.msc。</p>
-</li>
-</ul>
-<p><img src="/images/sum-1-4.png" alt></p>
-<p>2、检查计划任务</p>
-<ul>
-<li><p>检查方法：</p>
-<p>a、单击【开始】&gt;【设置】&gt;【控制面板】&gt;【任务计划】，查看计划任务属性，便可以发现木马文件的路径。</p>
-<p>b、单击【开始】&gt;【运行】；输入 cmd，然后输入at，检查计算机与网络上的其它计算机之间的会话或计划任务，如有，则确认是否为正常连接。</p>
-</li>
-</ul>
-<p>3、服务自启动</p>
-<ul>
-<li>检查方法：单击【开始】&gt;【运行】，输入services.msc，注意服务状态和启动类型，检查是否有异常服务。</li>
-</ul>
-<h4 id="1-4-检查系统相关信息"><a href="#1-4-检查系统相关信息" class="headerlink" title="1.4 检查系统相关信息"></a>1.4 检查系统相关信息</h4><p>1、查看系统版本以及补丁信息</p>
-<ul>
-<li>检查方法：单击【开始】&gt;【运行】，输入systeminfo，查看系统信息</li>
-</ul>
-<p>2、查找可疑目录及文件</p>
-<ul>
-<li><p>检查方法：</p>
-<p>a、 查看用户目录，新建账号会在这个目录生成一个用户目录，查看是否有新建用户目录。</p>
-<p>​    Window 2003  C:\Documents and Settings</p>
-<p>​    Window 2008R2  C:\Users\</p>
-<p>b、单击【开始】&gt;【运行】，输入%UserProfile%\Recent，分析最近打开分析可疑文件。</p>
-<p>c、在服务器各个目录，可根据文件夹内文件列表时间进行排序，查找可疑文件。</p>
-<p>d、回收站、浏览器下载目录、浏览器历史记录</p>
-<p>e、修改时间在创建时间之前的为可疑文件</p>
-</li>
-</ul>
-<p>3、得到发现WEBSHELL、远控木马的创建时间，如何找出同一时间范围内创建的文件？</p>
-<p>​    a、利用 Registry Workshop  注册表编辑器的搜索功能，可以找到最后写入时间区间的文件。</p>
-<p>​    b、利用计算机自带文件搜索功能，指定修改时间进行搜索。</p>
-<h4 id="1-5-自动化查杀"><a href="#1-5-自动化查杀" class="headerlink" title="1.5 自动化查杀"></a>1.5 自动化查杀</h4><ul>
-<li><p>病毒查杀</p>
-<ul>
-<li>检查方法：下载安全软件，更新最新病毒库，进行全盘扫描。</li>
-</ul>
-</li>
-<li><p>webshell查杀</p>
-<ul>
-<li>检查方法：选择具体站点路径进行webshell查杀，建议使用两款webshell查杀工具同时查杀，可相互补充规则库的不足。</li>
-</ul>
-</li>
-</ul>
-<h4 id="1-6-日志分析"><a href="#1-6-日志分析" class="headerlink" title="1.6 日志分析"></a>1.6 日志分析</h4><p>系统日志</p>
-<ul>
-<li><p>分析方法：</p>
-<p>a、前提：开启审核策略，若日后系统出现故障、安全事故则可以查看系统的日志文件，排除故障，追查入侵者的信息等。</p>
-<p>b、Win+R打开运行，输入“eventvwr.msc”，回车运行，打开“事件查看器”。</p>
-<p>C、导出应用程序日志、安全日志、系统日志，利用Log Parser进行分析。</p>
-</li>
-</ul>
-<p>WEB访问日志</p>
-<ul>
-<li><p>分析方法：</p>
-<p>a、找到中间件的web日志，打包到本地方便进行分析。</p>
-<p>b、推荐工具：Window下，推荐用 EmEditor 进行日志分析，支持大文本，搜索效率还不错。</p>
-<p>​                 Linux下，使用Shell命令组合查询分析</p>
-</li>
-</ul>
-<h3 id="0x02-工具篇"><a href="#0x02-工具篇" class="headerlink" title="0x02 工具篇"></a>0x02 工具篇</h3><h4 id="2-1-病毒分析"><a href="#2-1-病毒分析" class="headerlink" title="2.1 病毒分析"></a>2.1 病毒分析</h4><p>PCHunter：<a href="http://www.xuetr.com" target="_blank" rel="noopener">http://www.xuetr.com</a></p>
-<p>火绒剑：<a href="https://www.huorong.cn" target="_blank" rel="noopener">https://www.huorong.cn</a></p>
-<p>Process Explorer：<a href="https://docs.microsoft.com/zh-cn/sysinternals/downloads/process-explorer" target="_blank" rel="noopener">https://docs.microsoft.com/zh-cn/sysinternals/downloads/process-explorer</a></p>
-<p>processhacker：<a href="https://processhacker.sourceforge.io/downloads.php" target="_blank" rel="noopener">https://processhacker.sourceforge.io/downloads.php</a></p>
-<p>autoruns：<a href="https://docs.microsoft.com/en-us/sysinternals/downloads/autoruns" target="_blank" rel="noopener">https://docs.microsoft.com/en-us/sysinternals/downloads/autoruns</a></p>
-<p>OTL：<a href="https://www.bleepingcomputer.com/download/otl/" target="_blank" rel="noopener">https://www.bleepingcomputer.com/download/otl/</a></p>
-<p>SysInspector：<a href="http://download.eset.com.cn/download/detail/?product=sysinspector" target="_blank" rel="noopener">http://download.eset.com.cn/download/detail/?product=sysinspector</a></p>
-<h4 id="2-2-病毒查杀"><a href="#2-2-病毒查杀" class="headerlink" title="2.2 病毒查杀"></a>2.2 病毒查杀</h4><p>卡巴斯基：<a href="http://devbuilds.kaspersky-labs.com/devbuilds/KVRT/latest/full/KVRT.exe" target="_blank" rel="noopener">http://devbuilds.kaspersky-labs.com/devbuilds/KVRT/latest/full/KVRT.exe</a>   （推荐理由：绿色版、最新病毒库）</p>
-<p>大蜘蛛：<a href="http://free.drweb.ru/download+cureit+free（推荐理由：扫描快、一次下载只能用1周，更新病毒库）" target="_blank" rel="noopener">http://free.drweb.ru/download+cureit+free（推荐理由：扫描快、一次下载只能用1周，更新病毒库）</a></p>
-<p>火绒安全软件：<a href="https://www.huorong.cn" target="_blank" rel="noopener">https://www.huorong.cn</a></p>
-<p>360杀毒：<a href="http://sd.360.cn/download_center.html" target="_blank" rel="noopener">http://sd.360.cn/download_center.html</a></p>
-<h4 id="2-3-病毒动态"><a href="#2-3-病毒动态" class="headerlink" title="2.3 病毒动态"></a>2.3 病毒动态</h4><p>CVERC-国家计算机病毒应急处理中心：<a href="http://www.cverc.org.cn" target="_blank" rel="noopener">http://www.cverc.org.cn</a></p>
-<p>微步在线威胁情报社区：<a href="https://x.threatbook.cn" target="_blank" rel="noopener">https://x.threatbook.cn</a></p>
-<p>火绒安全论坛：<a href="http://bbs.huorong.cn/forum-59-1.html" target="_blank" rel="noopener">http://bbs.huorong.cn/forum-59-1.html</a></p>
-<p>爱毒霸社区：<a href="http://bbs.duba.net" target="_blank" rel="noopener">http://bbs.duba.net</a></p>
-<p>腾讯电脑管家：<a href="http://bbs.guanjia.qq.com/forum-2-1.html" target="_blank" rel="noopener">http://bbs.guanjia.qq.com/forum-2-1.html</a></p>
-<h4 id="2-4-在线病毒扫描网站"><a href="#2-4-在线病毒扫描网站" class="headerlink" title="2.4 在线病毒扫描网站"></a>2.4 在线病毒扫描网站</h4><p><a href="http://www.virscan.org" target="_blank" rel="noopener">http://www.virscan.org</a>         //多引擎在线病毒扫描网 v1.02，当前支持 41 款杀毒引擎     </p>
-<p><a href="https://habo.qq.com" target="_blank" rel="noopener">https://habo.qq.com</a>             //腾讯哈勃分析系统</p>
-<p><a href="https://virusscan.jotti.org" target="_blank" rel="noopener">https://virusscan.jotti.org</a>      //Jotti恶意软件扫描系统</p>
-<p><a href="http://www.scanvir.com" target="_blank" rel="noopener">http://www.scanvir.com</a>        //针对计算机病毒、手机病毒、可疑文件等进行检测分析</p>
-<h4 id="2-5-webshell查杀"><a href="#2-5-webshell查杀" class="headerlink" title="2.5 webshell查杀"></a>2.5 webshell查杀</h4><p>D盾_Web查杀：<a href="http://www.d99net.net/index.asp" target="_blank" rel="noopener">http://www.d99net.net/index.asp</a></p>
-<p>河马webshell查杀：<a href="http://www.shellpub.com" target="_blank" rel="noopener">http://www.shellpub.com</a></p>
-<p>深信服Webshell网站后门检测工具：<a href="http://edr.sangfor.com.cn/backdoor_detection.html" target="_blank" rel="noopener">http://edr.sangfor.com.cn/backdoor_detection.html</a></p>
-<p>Safe3：<a href="http://www.uusec.com/webshell.zip" target="_blank" rel="noopener">http://www.uusec.com/webshell.zip</a></p>
+        <p>好东西要分享，<br>茶马古道地址<br><a href="http://l2767b4t37ap2wzv6lforfxrxn7dbvw4cgtkalywwoin5ghdvw7obyyd.onion/i/394228" target="_blank" rel="noopener">http://l2767b4t37ap2wzv6lforfxrxn7dbvw4cgtkalywwoin5ghdvw7obyyd.onion/i/394228</a></p>
+<p>有想法的大家可以去了解一下，毕竟挺好的！</p>
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 cxaqhq@qq.com </span>
@@ -986,11 +825,11 @@ CPU或内存资源占用长时间过高的进程</code></pre></li>
 
 
 <div class="article_copyright">
-    <p><span class="copy-title">文章标题:</span>第1章第1篇：window入侵排查</p>
-    <p><span class="copy-title">文章字数:</span><span class="post-count">2.1k</span></p>
+    <p><span class="copy-title">文章标题:</span>茶马古道</p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">35</span></p>
     <p><span class="copy-title">本文作者:</span><a href="javascript:void(0)" title="cx">cx</a></p>
-    <p><span class="copy-title">发布时间:</span>2019-10-16, 13:37:00</p>
-    <p><span class="copy-title">最后更新:</span>2019-10-17, 10:39:27</p>
+    <p><span class="copy-title">发布时间:</span>2019-11-25, 00:24:48</p>
+    <p><span class="copy-title">最后更新:</span>2019-11-25, 00:25:44</p>
   
 </div>
 
