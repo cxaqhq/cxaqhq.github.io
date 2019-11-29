@@ -2,9 +2,9 @@
 <html>
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
-  <title>hexo 坑 | cx网络安全小站</title>
+  <title>如何搭建自己的暗网站点 | cx网络安全小站</title>
   <meta name="keywords" content>
-  <meta name="description" content="hexo 坑 | cx网络安全小站">
+  <meta name="description" content="如何搭建自己的暗网站点 | cx网络安全小站">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="fatal: 无法读取远程仓库。\n\n请确认您有正确的访问权限并且仓库存在 解决方法。 1234sudo rm -rf .deploy_git  hexo clean  hexo g  hexo d">
 <meta property="og:type" content="article">
@@ -755,9 +755,9 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="post-hexo-坑" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-暗网" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">hexo 坑</h1>
+        <h1 class="article-title">如何搭建自己的暗网站点</h1>
     
     <div class="article-meta">
         
@@ -767,12 +767,12 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2019-10-28 09:03:36'>2019-10-28 09:02</time>
+        创建时间:<time class="date" title='更新时间: 2019-11-29 14:43:04'>2019-11-29 14:28</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:43</span>
+        <span>字数:204</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -818,9 +818,17 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>fatal: 无法读取远程仓库。\n\n请确认您有正确的访问权限并且仓库存在</p>
-<p>解决方法。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo rm -rf .deploy_git  </span><br><span class="line">hexo clean  </span><br><span class="line">hexo g  </span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure>
+        <p>如何搭建自己的暗网站点</p>
+<p>我们都知道暗网，知道tor。那我们知道，暗网最重要特性的就是匿名性，在那个地方，谁也不知道谁。那我们在那里面该如何搭建属于自己的网站呢？</p>
+<p>操作系统：debain9</p>
+<p>更新系统：apt-get update &amp;&amp; apt-get upgrade<br>安装tor：apt-get install tor<br>安装nginx：apt-get install nginx</p>
+<p>安装完之后，编辑tor配置文件<br>/etc/tor/torrc</p>
+<p>把下面两条注释掉</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">HiddenServiceDir /var/lib/tor/hidden_service/</span><br><span class="line">HiddenServicePort 80 127.0.0.1:80</span><br></pre></td></tr></table></figure>
+
+
+<p>然后启动tor，当然，nginx服务也要启动的，如果没有安装错误的话。<br>会在/var/lib/tor/hidden_service/这个目录生成hidden_service文件，打开有两个文件，其中hostname就是你的onion域名地址的文件，用tor浏览器访问即可。</p>
+
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 cxaqhq@qq.com </span>
     </div>
@@ -833,11 +841,11 @@
 
 
 <div class="article_copyright">
-    <p><span class="copy-title">文章标题:</span>hexo 坑</p>
-    <p><span class="copy-title">文章字数:</span><span class="post-count">43</span></p>
+    <p><span class="copy-title">文章标题:</span>如何搭建自己的暗网站点</p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">204</span></p>
     <p><span class="copy-title">本文作者:</span><a href="javascript:void(0)" title="cx">cx</a></p>
-    <p><span class="copy-title">发布时间:</span>2019-10-28, 09:02:52</p>
-    <p><span class="copy-title">最后更新:</span>2019-10-28, 09:03:36</p>
+    <p><span class="copy-title">发布时间:</span>2019-11-29, 14:28:06</p>
+    <p><span class="copy-title">最后更新:</span>2019-11-29, 14:43:04</p>
   
 </div>
 
